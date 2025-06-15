@@ -1,5 +1,5 @@
 title = "Bechir Blog"
-baseURL = "http://example.com/"
+baseURL = "https://Bechir-Braham.github.io/blog/"
 languageCode = "en-us"
 theme = "ananke"
 
