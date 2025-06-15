@@ -32,6 +32,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       HUGO_VERSION: 0.128.0
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - name: Install Hugo CLI
         run: |
@@ -59,6 +62,4 @@ jobs:
         with:
           path: ./public
       - uses: actions/deploy-pages@v4
-        env:
-          name: github-pages
-          url: ${{ steps.pages.outputs.page_url }}
+        id: deploy
