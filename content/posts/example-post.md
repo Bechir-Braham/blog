@@ -7,7 +7,7 @@ tags:
     - blogging
     - tutorial
 ---
- Example Blog Post
+ Example Blog Post potato
 
 ## Introduction
 Welcome to my blog! This is a short example post to demonstrate the structure of a typical article.
