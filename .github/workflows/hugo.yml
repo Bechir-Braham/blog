@@ -58,8 +58,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
-      - name: deploy
+      - uses: actions/deploy-pages@v4
         env:
           name: github-pages
           url: ${{ steps.pages.outputs.page_url }}
-        uses: actions/deploy-pages@v4

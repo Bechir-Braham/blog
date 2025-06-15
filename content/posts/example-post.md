@@ -1,5 +1,5 @@
 ---
-title: "Example Blog Post"
+title: "Example Blog Post Potato"
 date: "2023-10-05"
 author: "Bechir Braham"
 tags:
