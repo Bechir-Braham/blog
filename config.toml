@@ -1,0 +1,9 @@
+title = "Bechir Blog"
+baseURL = "http://example.com/"
+languageCode = "en-us"
+theme = "ananke"
+
+[params]
+  description = "A personal blog where I can write about tech and non-tech topics"
+  author = "Bechir Braham"
+  keywords = []
