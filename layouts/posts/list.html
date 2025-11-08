@@ -1,0 +1,31 @@
+{{ define "main" }}
+  <article class="pa3 pa4-ns">
+    <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy {{ $.Param "text_color" | compare.Default "mid-gray" }}">
+      {{- .Content -}}
+    </section>
+    
+    <section class="center measure-wide pa3">
+      <ul class="list pl0">
+        {{ range .Pages }}
+          <li class="pv3 bb b--light-gray">
+            <h3 class="f4 fw6 mt0 mb2">
+              <a href="{{ .RelPermalink }}" class="link dark-gray dim no-underline">
+                {{ .Title }}
+              </a>
+            </h3>
+            <div class="f6 gray mb2">
+              <time>{{ .Date.Format "January 2, 2006" }}</time>
+            </div>
+            {{ if .Params.tags }}
+              <div class="f7">
+                {{ range .Params.tags }}
+                  <span class="dib bg-light-gray br2 ph2 pv1 mr2 mb1 dark-gray">{{ . }}</span>
+                {{ end }}
+              </div>
+            {{ end }}
+          </li>
+        {{ end }}
+      </ul>
+    </section>
+  </article>
+{{ end }}

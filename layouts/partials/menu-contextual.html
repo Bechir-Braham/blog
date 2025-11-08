@@ -1,0 +1,13 @@
+{{/*
+  Use Hugo's native Table of contents feature. You must set `toc: true` in your parameters for this to show.
+  https://gohugo.io/content-management/toc/
+*/}}
+
+{{- if .Params.toc -}}
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">{{ lang.Translate "whatsInThis" . }}</p>
+      {{ .TableOfContents }}
+  </div>
+{{- end -}}
+
+{{/* Related content section removed */}}
