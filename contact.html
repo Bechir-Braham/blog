@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Bechir Braham - Software Developer. Get in touch for collaborations and opportunities.">
+    <meta name="keywords" content="contact, bechir braham, software developer, collaboration">
+    <title>Contact - Bechir Braham</title>
+    <link rel="stylesheet" href="static/css/main.css">
+</head>
+<body class="py-10">
+    <div class="container">
+        <header class="page-header">
+            <h1 class="page-header__title">$ contact --info</h1>
+            <p class="page-header__subtitle">Get in touch with Bechir Braham</p>
+        </header>
+        
+        <main class="grid gap-8">
+            <section class="card" aria-labelledby="direct-contact">
+                <h2 id="direct-contact" class="card__title mb-5">Direct Contact</h2>
+                
+                <div class="grid gap-4">
+                    <div class="flex items-center p-3 bg-primary-dim rounded">
+                        <div class="text-2xl mr-4 w-8" aria-hidden="true">📧</div>
+                        <div class="flex-1">
+                            <span class="text-primary font-semibold block">Email</span>
+                            <div class="mt-1">
+                                <a href="mailto:bechir.braham@example.com" class="btn--secondary text-sm">bechir.braham@example.com</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center p-3 bg-primary-dim rounded">
+                        <div class="text-2xl mr-4 w-8" aria-hidden="true">📱</div>
+                        <div class="flex-1">
+                            <span class="text-primary font-semibold block">Phone</span>
+                            <div class="text-secondary mt-1">+1 (555) 123-4567</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center p-3 bg-primary-dim rounded">
+                        <div class="text-2xl mr-4 w-8" aria-hidden="true">📍</div>
+                        <div class="flex-1">
+                            <span class="text-primary font-semibold block">Location</span>
+                            <div class="text-secondary mt-1">San Francisco, CA</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="card" aria-labelledby="social-networks">
+                <h2 id="social-networks" class="card__title mb-5">Social Media & Professional Networks</h2>
+                
+                <div class="grid gap-4">
+                    <div class="flex items-center p-3 bg-primary-dim rounded">
+                        <div class="text-2xl mr-4 w-8" aria-hidden="true">💼</div>
+                        <div class="flex-1">
+                            <span class="text-primary font-semibold block">LinkedIn</span>
+                            <div class="mt-1">
+                                <a href="https://linkedin.com/in/bechir-braham" 
+                                   class="btn--secondary text-sm" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   aria-label="Visit LinkedIn profile (opens in new tab)">
+                                   linkedin.com/in/bechir-braham
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center p-3 bg-primary-dim rounded">
+                        <div class="text-2xl mr-4 w-8" aria-hidden="true">🐙</div>
+                        <div class="flex-1">
+                            <span class="text-primary font-semibold block">GitHub</span>
+                            <div class="mt-1">
+                                <a href="https://github.com/Bechir-Braham" 
+                                   class="btn--secondary text-sm" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   aria-label="Visit GitHub profile (opens in new tab)">
+                                   github.com/Bechir-Braham
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center p-3 bg-primary-dim rounded">
+                        <div class="text-2xl mr-4 w-8" aria-hidden="true">🐦</div>
+                        <div class="flex-1">
+                            <span class="text-primary font-semibold block">Twitter</span>
+                            <div class="mt-1">
+                                <a href="https://twitter.com/bechirbraham" 
+                                   class="btn--secondary text-sm" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   aria-label="Visit Twitter profile (opens in new tab)">
+                                   @bechirbraham
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center p-3 bg-primary-dim rounded">
+                        <div class="text-2xl mr-4 w-8" aria-hidden="true">📝</div>
+                        <div class="flex-1">
+                            <span class="text-primary font-semibold block">Dev.to</span>
+                            <div class="mt-1">
+                                <a href="https://dev.to/bechirbraham" 
+                                   class="btn--secondary text-sm" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   aria-label="Visit Dev.to profile (opens in new tab)">
+                                   dev.to/bechirbraham
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="card" aria-labelledby="contact-form">
+                <h2 id="contact-form" class="card__title mb-5">Send a Message</h2>
+                <form class="form" id="contactForm" novalidate>
+                    <div class="form__group">
+                        <label for="name" class="form__label">Name:</label>
+                        <input type="text" 
+                               id="name" 
+                               name="name" 
+                               class="form__input" 
+                               required 
+                               aria-describedby="name-error">
+                        <div id="name-error" class="text-error text-sm mt-1 hidden" role="alert"></div>
+                    </div>
+                    
+                    <div class="form__group">
+                        <label for="email" class="form__label">Email:</label>
+                        <input type="email" 
+                               id="email" 
+                               name="email" 
+                               class="form__input" 
+                               required 
+                               aria-describedby="email-error">
+                        <div id="email-error" class="text-error text-sm mt-1 hidden" role="alert"></div>
+                    </div>
+                    
+                    <div class="form__group">
+                        <label for="subject" class="form__label">Subject:</label>
+                        <input type="text" 
+                               id="subject" 
+                               name="subject" 
+                               class="form__input" 
+                               required 
+                               aria-describedby="subject-error">
+                        <div id="subject-error" class="text-error text-sm mt-1 hidden" role="alert"></div>
+                    </div>
+                    
+                    <div class="form__group">
+                        <label for="message" class="form__label">Message:</label>
+                        <textarea id="message" 
+                                  name="message" 
+                                  class="form__textarea" 
+                                  required 
+                                  placeholder="Enter your message here..."
+                                  aria-describedby="message-error"></textarea>
+                        <div id="message-error" class="text-error text-sm mt-1 hidden" role="alert"></div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn--primary">
+                        $ send-message
+                    </button>
+                </form>
+                
+                <div id="form-status" class="mt-4 hidden" role="status" aria-live="polite"></div>
+            </section>
+        </main>
+        
+        <nav class="mt-8">
+            <a href="index.html" class="nav-back">← Back to Terminal</a>
+        </nav>
+    </div>
+    
+    <script src="static/js/core.js"></script>
+    <script src="static/js/forms.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contactForm');
+            
+            // Initialize form handler with new API
+            const formHandler = new FormHandler(form, {
+                validateOnInput: true,
+                showSuccessMessage: true,
+                resetOnSuccess: true,
+                onSuccess: (data) => {
+                    console.log('Form submitted successfully:', data);
+                },
+                onError: (error) => {
+                    console.error('Form submission error:', error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+/* ==========================================================================
+   Terminal Specific Styles
+   Used only by: index.html
+   ========================================================================== */
+
+/* Terminal Component */
+.terminal {
+  height: 100vh;
+  padding: var(--space-5);
+  background: linear-gradient(45deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.terminal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-5);
+  border-bottom: var(--border-width-thick) solid var(--color-primary);
+}
+
+.terminal__header-left {
+  display: flex;
+  align-items: center;
+}
+
+.terminal__buttons {
+  display: flex;
+  gap: var(--space-2);
+  margin-right: var(--space-4);
+}
+
+.terminal__button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+}
+
+.terminal__button--red { background-color: #ff5f56; }
+.terminal__button--yellow { background-color: var(--color-accent); }
+.terminal__button--green { background-color: var(--color-success); }
+
+.terminal__title {
+  color: var(--color-primary);
+  font-size: var(--font-size-base);
+}
+
+.terminal__nav {
+  display: flex;
+  gap: var(--space-5);
+}
+
+.terminal__nav-link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  padding: var(--space-1) var(--space-2);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--border-radius-sm);
+  transition: all var(--transition-base);
+}
+
+.terminal__nav-link:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-dim);
+}
+
+.terminal__content {
+  height: calc(100vh - 140px);
+  overflow-y: auto;
+  padding: var(--space-3) 0;
+}
+
+.terminal__history {
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
+/* Terminal Input - Special styling to look seamless */
+.terminal__input {
+  background: transparent !important;
+  border: none !important;
+  color: var(--color-text-secondary) !important;
+  font-family: var(--font-family-mono) !important;
+  font-size: var(--font-size-base) !important;
+  outline: none !important;
+  width: 100% !important;
+  caret-color: var(--color-primary) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+}
+
+.terminal__input:focus {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Terminal-specific responsive adjustments */
+@media (max-width: 480px) {
+  .terminal {
+    padding: var(--space-2);
+  }
+  
+  .terminal__nav {
+    gap: var(--space-2);
+  }
+}
+
+/* Terminal print styles */
+@media print {
+  .terminal__nav {
+    display: none !important;
+  }
+  
+  .terminal {
+    padding: 0;
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/* Terminal focus styles */
+.terminal__nav-link:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+/* Terminal input should never show focus outline */
+.terminal__input:focus-visible {
+  outline: none !important;
+}

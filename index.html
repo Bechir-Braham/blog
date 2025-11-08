@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bechir Braham - Software Developer Portfolio with Interactive Terminal Interface">
+    <meta name="keywords" content="software developer, web development, terminal interface, portfolio">
+    <meta name="author" content="Bechir Braham">
+    <title>Bechir Braham - Personal Terminal</title>
+    <link rel="stylesheet" href="static/css/main.css">
+    <link rel="stylesheet" href="static/css/terminal.css">
+</head>
+<body>
+    <main class="terminal" role="main">
+        <header class="terminal__header">
+            <div class="terminal__header-left">
+                <div class="terminal__buttons" aria-hidden="true">
+                    <div class="terminal__button terminal__button--red"></div>
+                    <div class="terminal__button terminal__button--yellow"></div>
+                    <div class="terminal__button terminal__button--green"></div>
+                </div>
+                <div class="terminal__title">bechir@terminal:~</div>
+            </div>
+            <nav class="terminal__nav" role="navigation" aria-label="Main navigation">
+                <a href="contact.html" class="terminal__nav-link">contact</a>
+                <a href="resume.html" class="terminal__nav-link">resume</a>
+                <a href="blog.html" class="terminal__nav-link">blog</a>
+                <a href="projects.html" class="terminal__nav-link">projects</a>
+            </nav>
+        </header>
+        
+        <section class="terminal__content">
+            <div class="terminal__history" id="commandHistory" role="log" aria-live="polite" aria-label="Terminal output">
+                <div class="mb-6">
+                    <pre class="text-primary text-sm" aria-hidden="true">
+██████╗ ███████╗ ██████╗██╗  ██╗██╗██████╗     ██████╗ ██████╗  █████╗ ██╗  ██╗ █████╗ ███╗   ███╗
+██╔══██╗██╔════╝██╔════╝██║  ██║██║██╔══██╗    ██╔══██╗██╔══██╗██╔══██╗██║  ██║██╔══██╗████╗ ████║
+██████╔╝█████╗  ██║     ███████║██║██████╔╝    ██████╔╝██████╔╝███████║███████║███████║██╔████╔██║
+██╔══██╗██╔══╝  ██║     ██╔══██║██║██╔══██╗    ██╔══██╗██╔══██╗██╔══██║██╔══██║██╔══██║██║╚██╔╝██║
+██████╔╝███████╗╚██████╗██║  ██║██║██║  ██║    ██████╔╝██║  ██║██║  ██║██║  ██║██║  ██║██║ ╚═╝ ██║
+╚═════╝ ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝
+                    </pre>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="flex items-center mb-2">
+                        <span class="text-primary mr-2">bechir@terminal:~$</span>
+                        <span class="text-secondary">whoami</span>
+                    </div>
+                    <div class="text-muted ml-5">Software Developer | Problem Solver | Tech Enthusiast</div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="flex items-center mb-2">
+                        <span class="text-primary mr-2">bechir@terminal:~$</span>
+                        <span class="text-secondary">ls -la ~/about</span>
+                    </div>
+                    <div class="text-muted ml-5">total 5<br>drwxr-xr-x  5 bechir  staff   160 Nov  8 2025 .<br>drwxr-xr-x  3 bechir  staff    96 Nov  8 2025 ..<br>-rw-r--r--  1 bechir  staff   420 Nov  8 2025 bio.txt<br>-rw-r--r--  1 bechir  staff   280 Nov  8 2025 skills.txt<br>-rw-r--r--  1 bechir  staff   350 Nov  8 2025 contact.txt</div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="flex items-center mb-2">
+                        <span class="text-primary mr-2">bechir@terminal:~$</span>
+                        <span class="text-secondary">cat ~/about/bio.txt</span>
+                    </div>
+                    <div class="text-muted ml-5">Hello! I'm Bechir Braham, a passionate software developer with a love for creating<br>elegant solutions to complex problems. I enjoy working with various technologies<br>and am always eager to learn new things. When I'm not coding, you can find me<br>exploring new technologies, reading tech blogs, or working on personal projects.</div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="flex items-center mb-2">
+                        <span class="text-primary mr-2">bechir@terminal:~$</span>
+                        <span class="text-secondary">help</span>
+                    </div>
+                    <div class="text-info ml-5">Available commands:<br>  about       - Learn more about me<br>  skills      - View my technical skills<br>  projects    - Browse my projects<br>  blog        - Read my latest blog posts<br>  contact     - Get in touch with me<br>  social      - Find me on social media<br>  clear       - Clear the terminal<br>  help        - Show this help message</div>
+                </div>
+            </div>
+            
+            <div class="flex items-center mt-6" role="group" aria-label="Command input">
+                <label for="userInput" class="sr-only">Enter terminal command</label>
+                <span class="text-primary mr-2 flex-shrink-0">bechir@terminal:~$</span>
+                <input 
+                    type="text" 
+                    class="terminal__input flex-1" 
+                    id="userInput" 
+                    placeholder="Type 'help' for available commands..." 
+                    autocomplete="off"
+                    aria-describedby="terminal-help"
+                >
+                <span class="text-primary animate-blink ml-1" aria-hidden="true">_</span>
+            </div>
+            <div id="terminal-help" class="sr-only">
+                Use arrow keys to navigate command history, Tab for auto-completion
+            </div>
+        </section>
+    </main>
+
+    <script src="static/js/core.js"></script>
+    <script src="static/js/terminal.js"></script>
+    <script src="static/js/commands.js"></script>
+    <script>
+        // Initialize terminal when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const terminal = new TerminalCore({
+                userInputElement: document.getElementById('userInput'),
+                commandHistoryElement: document.getElementById('commandHistory'),
+                availableCommands: TerminalCommands.getCommandNames()
+            });
+
+            // Register all commands
+            const commandNames = TerminalCommands.getCommandNames();
+            commandNames.forEach(commandName => {
+                terminal.registerCommand(commandName, (command) => {
+                    const args = command.split(' ').slice(1);
+                    return TerminalCommands.execute(commandName, args, terminal);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bechir Braham's Project Portfolio - Showcase of development projects including web apps, mobile apps, and tools">
+    <meta name="keywords" content="projects, portfolio, web development, mobile apps, software projects">
+    <title>Projects - Bechir Braham</title>
+    <link rel="stylesheet" href="static/css/main.css">
+</head>
+<body class="py-10">
+    <div class="container">
+        <header class="page-header">
+            <h1 class="page-header__title">$ ls -la ~/projects/</h1>
+            <p class="page-header__subtitle">A showcase of Bechir Braham's development projects</p>
+        </header>
+        
+        <nav class="mb-8" aria-label="Project filters">
+            <div class="flex gap-4 justify-center flex-wrap">
+                <button class="btn btn--primary btn--small active" data-category="all" aria-pressed="true">
+                    All Projects
+                </button>
+                <button class="btn btn--primary btn--small" data-category="web" aria-pressed="false">
+                    Web Apps
+                </button>
+                <button class="btn btn--primary btn--small" data-category="mobile" aria-pressed="false">
+                    Mobile Apps
+                </button>
+                <button class="btn btn--primary btn--small" data-category="api" aria-pressed="false">
+                    APIs
+                </button>
+                <button class="btn btn--primary btn--small" data-category="tools" aria-pressed="false">
+                    Tools
+                </button>
+            </div>
+        </nav>
+        
+        <main class="grid grid-cols-1 lg:grid-cols-2 gap-8" id="projectsGrid" role="main">
+            <article class="card relative animate-fade-in" data-category="web tools" itemscope itemtype="https://schema.org/SoftwareApplication">
+                <div class="badge">Featured</div>
+                <div class="card__header">
+                    <div>
+                        <h2 class="card__title" itemprop="name">Personal Terminal Website</h2>
+                        <div class="status status--live">Live</div>
+                    </div>
+                </div>
+                
+                <div class="card__content" itemprop="description">
+                    An interactive terminal-style personal website built with vanilla HTML, CSS, and JavaScript. 
+                    Features command-line interface, keyboard navigation, command history, and tab completion. 
+                    Showcases creative UI/UX design with retro computing aesthetics.
+                </div>
+                
+                <div class="p-4 bg-primary-dim rounded mt-4">
+                    <div class="grid grid-cols-3 gap-4 text-sm">
+                        <div>
+                            <span class="text-primary font-semibold block">Lines:</span>
+                            <span class="text-muted">~800</span>
+                        </div>
+                        <div>
+                            <span class="text-primary font-semibold block">Type:</span>
+                            <span class="text-muted">Portfolio</span>
+                        </div>
+                        <div>
+                            <span class="text-primary font-semibold block">Year:</span>
+                            <span class="text-muted">2025</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <span class="text-primary font-semibold block mb-2">Technologies:</span>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">HTML5</span>
+                        <span class="tag">CSS3</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Responsive Design</span>
+                    </div>
+                </div>
+                
+                <footer class="flex gap-4 mt-6 flex-wrap">
+                    <button class="btn btn--primary btn--small" onclick="viewProject('terminal-site')" itemprop="url">
+                        🐙 GitHub
+                    </button>
+                    <a href="index.html" class="btn btn--secondary btn--small">
+                        🔗 Live Demo
+                    </a>
+                </footer>
+            </article>
+            
+            <article class="card animate-fade-in" data-category="web" itemscope itemtype="https://schema.org/SoftwareApplication">
+                <div class="card__header">
+                    <div>
+                        <h2 class="card__title" itemprop="name">E-commerce Platform</h2>
+                        <div class="status status--live">Live</div>
+                    </div>
+                </div>
+                
+                <div class="card__content" itemprop="description">
+                    Full-stack e-commerce solution with modern React frontend and Node.js backend. 
+                    Features user authentication, product catalog, shopping cart, payment integration with Stripe, 
+                    order management, and admin dashboard with analytics.
+                </div>
+                
+                <div class="p-4 bg-primary-dim rounded mt-4">
+                    <div class="grid grid-cols-3 gap-4 text-sm">
+                        <div>
+                            <span class="text-primary font-semibold block">Users:</span>
+                            <span class="text-muted">5K+</span>
+                        </div>
+                        <div>
+                            <span class="text-primary font-semibold block">Orders:</span>
+                            <span class="text-muted">1.2K+</span>
+                        </div>
+                        <div>
+                            <span class="text-primary font-semibold block">Uptime:</span>
+                            <span class="text-muted">99.9%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <span class="text-primary font-semibold block mb-2">Technologies:</span>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">React</span>
+                        <span class="tag">Node.js</span>
+                        <span class="tag">MongoDB</span>
+                        <span class="tag">Stripe API</span>
+                        <span class="tag">AWS</span>
+                    </div>
+                </div>
+                
+                <footer class="flex gap-4 mt-6 flex-wrap">
+                    <button class="btn btn--primary btn--small" onclick="viewProject('ecommerce')" itemprop="url">
+                        🐙 GitHub
+                    </button>
+                    <button class="btn btn--secondary btn--small" onclick="viewProject('ecommerce-demo')">
+                        🔗 Live Demo
+                    </button>
+                </footer>
+            </article>
+            
+            <article class="card animate-fade-in" data-category="mobile" itemscope itemtype="https://schema.org/MobileApplication">
+                <div class="card__header">
+                    <div>
+                        <h2 class="card__title" itemprop="name">Task Manager App</h2>
+                        <div class="status status--live">Live</div>
+                    </div>
+                </div>
+                
+                <div class="card__content" itemprop="description">
+                    Cross-platform mobile application built with React Native for task and project management. 
+                    Features real-time synchronization, push notifications, collaborative workspaces, 
+                    offline support, and intuitive gesture-based interactions.
+                </div>
+                
+                <div class="p-4 bg-primary-dim rounded mt-4">
+                    <div class="grid grid-cols-3 gap-4 text-sm">
+                        <div>
+                            <span class="text-primary font-semibold block">Downloads:</span>
+                            <span class="text-muted">2.5K+</span>
+                        </div>
+                        <div>
+                            <span class="text-primary font-semibold block">Rating:</span>
+                            <span class="text-muted">4.7★</span>
+                        </div>
+                        <div>
+                            <span class="text-primary font-semibold block">Tasks Created:</span>
+                            <span class="text-muted">50K+</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <span class="text-primary font-semibold block mb-2">Technologies:</span>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">React Native</span>
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">Firebase</span>
+                        <span class="tag">Redux</span>
+                        <span class="tag">Push Notifications</span>
+                    </div>
+                </div>
+                
+                <footer class="flex gap-4 mt-6 flex-wrap">
+                    <button class="btn btn--primary btn--small" onclick="viewProject('task-manager')" itemprop="url">
+                        🐙 GitHub
+                    </button>
+                    <button class="btn btn--secondary btn--small" onclick="viewProject('task-app-store')">
+                        📱 App Store
+                    </button>
+                    <button class="btn btn--secondary btn--small" onclick="viewProject('task-play-store')">
+                        🤖 Play Store
+                    </button>
+                </footer>
+            </article>
+            
+            <article class="card animate-fade-in" data-category="web" itemscope itemtype="https://schema.org/WebApplication">
+                <div class="card__header">
+                    <div>
+                        <h2 class="card__title" itemprop="name">Weather Dashboard</h2>
+                        <div class="status status--live">Live</div>
+                    </div>
+                </div>
+                
+                <div class="card__content" itemprop="description">
+                    Real-time weather data visualization dashboard with interactive charts and maps. 
+                    Features location-based weather, 7-day forecasts, weather alerts, historical data analysis, 
+                    and responsive design optimized for both desktop and mobile.
+                </div>
+                
+                <div class="p-4 bg-primary-dim rounded mt-4">
+                    <div class="grid grid-cols-3 gap-4 text-sm">
+                        <div>
+                            <span class="text-primary font-semibold block">API Calls:</span>
+                            <span class="text-muted">100K+/month</span>
+                        </div>
+                        <div>
+                            <span class="text-primary font-semibold block">Locations:</span>
+                            <span class="text-muted">500+</span>
+                        </div>
+                        <div>
+                            <span class="text-primary font-semibold block">Accuracy:</span>
+                            <span class="text-muted">95%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <span class="text-primary font-semibold block mb-2">Technologies:</span>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">Vue.js</span>
+                        <span class="tag">D3.js</span>
+                        <span class="tag">OpenWeather API</span>
+                        <span class="tag">Chart.js</span>
+                        <span class="tag">Tailwind CSS</span>
+                    </div>
+                </div>
+                
+                <footer class="flex gap-4 mt-6 flex-wrap">
+                    <button class="btn btn--primary btn--small" onclick="viewProject('weather-dashboard')" itemprop="url">
+                        🐙 GitHub
+                    </button>
+                    <button class="btn btn--secondary btn--small" onclick="viewProject('weather-demo')">
+                        🔗 Live Demo
+                    </button>
+                </footer>
+            </article>
+            
+            <article class="card animate-fade-in" data-category="api" itemscope itemtype="https://schema.org/SoftwareApplication">
+                <div class="card__header">
+                    <div>
+                        <h2 class="card__title" itemprop="name">API Gateway Service</h2>
+                        <div class="status status--live">Live</div>
+                    </div>
+                </div>
+                
+                <div class="card__content" itemprop="description">
+                    Microservices API gateway built with Node.js and Express. Handles authentication, 
+                    rate limiting, load balancing, request/response transformation, monitoring, and logging. 
+                    Supports multiple authentication methods and provides comprehensive analytics.
+                </div>
+                
+                <div class="p-4 bg-primary-dim rounded mt-4">
+                    <div class="grid grid-cols-3 gap-4 text-sm">
+                        <div>
+                            <span class="text-primary font-semibold block">Requests:</span>
+                            <span class="text-muted">1M+/day</span>
+                        </div>
+                        <div>
+                            <span class="text-primary font-semibold block">Services:</span>
+                            <span class="text-muted">25+</span>
+                        </div>
+                        <div>
+                            <span class="text-primary font-semibold block">Latency:</span>
+                            <span class="text-muted">&lt;50ms</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <span class="text-primary font-semibold block mb-2">Technologies:</span>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">Node.js</span>
+                        <span class="tag">Express.js</span>
+                        <span class="tag">Redis</span>
+                        <span class="tag">Docker</span>
+                        <span class="tag">JWT</span>
+                        <span class="tag">Kubernetes</span>
+                    </div>
+                </div>
+                
+                <footer class="flex gap-4 mt-6 flex-wrap">
+                    <button class="btn btn--primary btn--small" onclick="viewProject('api-gateway')" itemprop="url">
+                        🐙 GitHub
+                    </button>
+                    <button class="btn btn--secondary btn--small" onclick="viewProject('api-docs')">
+                        📚 Documentation
+                    </button>
+                </footer>
+            </article>
+            
+            <article class="card animate-fade-in" data-category="tools" itemscope itemtype="https://schema.org/SoftwareApplication">
+                <div class="card__header">
+                    <div>
+                        <h2 class="card__title" itemprop="name">Development CLI Tools</h2>
+                        <div class="status status--progress">In Progress</div>
+                    </div>
+                </div>
+                
+                <div class="card__content" itemprop="description">
+                    Collection of command-line tools for developers including project scaffolding, 
+                    code generation, database migration helpers, and deployment scripts. 
+                    Built with Python and designed for cross-platform compatibility.
+                </div>
+                
+                <div class="p-4 bg-primary-dim rounded mt-4">
+                    <div class="grid grid-cols-3 gap-4 text-sm">
+                        <div>
+                            <span class="text-primary font-semibold block">Tools:</span>
+                            <span class="text-muted">12</span>
+                        </div>
+                        <div>
+                            <span class="text-primary font-semibold block">Commands:</span>
+                            <span class="text-muted">50+</span>
+                        </div>
+                        <div>
+                            <span class="text-primary font-semibold block">Downloads:</span>
+                            <span class="text-muted">800+</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <span class="text-primary font-semibold block mb-2">Technologies:</span>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">Python</span>
+                        <span class="tag">Click</span>
+                        <span class="tag">SQLAlchemy</span>
+                        <span class="tag">PyPI</span>
+                        <span class="tag">GitHub Actions</span>
+                    </div>
+                </div>
+                
+                <footer class="flex gap-4 mt-6 flex-wrap">
+                    <button class="btn btn--primary btn--small" onclick="viewProject('cli-tools')" itemprop="url">
+                        🐙 GitHub
+                    </button>
+                    <button class="btn btn--secondary btn--small" onclick="viewProject('cli-pypi')">
+                        📦 PyPI
+                    </button>
+                </footer>
+            </article>
+            
+            <article class="card animate-fade-in" data-category="web" itemscope itemtype="https://schema.org/WebApplication">
+                <div class="card__header">
+                    <div>
+                        <h2 class="card__title" itemprop="name">Social Media Analytics</h2>
+                        <div class="status status--planning">Planning</div>
+                    </div>
+                </div>
+                
+                <div class="card__content" itemprop="description">
+                    Comprehensive social media analytics platform with data visualization, sentiment analysis, 
+                    and automated reporting. Will integrate with major social platforms and provide 
+                    actionable insights for content creators and businesses.
+                </div>
+                
+                <div class="p-4 bg-primary-dim rounded mt-4">
+                    <div class="grid grid-cols-3 gap-4 text-sm">
+                        <div>
+                            <span class="text-primary font-semibold block">Status:</span>
+                            <span class="text-muted">Design Phase</span>
+                        </div>
+                        <div>
+                            <span class="text-primary font-semibold block">Timeline:</span>
+                            <span class="text-muted">Q1 2026</span>
+                        </div>
+                        <div>
+                            <span class="text-primary font-semibold block">Team:</span>
+                            <span class="text-muted">3 developers</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <span class="text-primary font-semibold block mb-2">Planned Technologies:</span>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="tag">Next.js</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">TensorFlow</span>
+                        <span class="tag">PostgreSQL</span>
+                        <span class="tag">Social APIs</span>
+                    </div>
+                </div>
+                
+                <footer class="flex gap-4 mt-6 flex-wrap">
+                    <button class="btn btn--secondary btn--small" onclick="viewProject('analytics-roadmap')" itemprop="url">
+                        📋 Roadmap
+                    </button>
+                </footer>
+            </article>
+        </main>
+        
+        <div id="noPosts" class="text-center text-muted mt-12 hidden" role="status">
+            <p>No projects found matching your criteria.</p>
+        </div>
+        
+        <nav class="mt-8">
+            <a href="index.html" class="nav-back">← Back to Terminal</a>
+        </nav>
+    </div>
+    
+    <script src="static/js/core.js"></script>
+    <script src="static/js/filters.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize filter manager
+            const filterManager = new FilterManager({
+                items: document.querySelectorAll('.card'),
+                filterButtons: document.querySelectorAll('[data-category]'),
+                searchInput: null, // No search input on projects page
+                noResultsElement: document.getElementById('noPosts')
+            });
+            
+            // Override updateActiveButton to handle aria-pressed
+            const originalUpdateActiveButton = filterManager.updateActiveButton;
+            filterManager.updateActiveButton = function(activeButton) {
+                this.filterButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.setAttribute('aria-pressed', 'false');
+                });
+                activeButton.classList.add('active');
+                activeButton.setAttribute('aria-pressed', 'true');
+            };
+            
+            // Add staggered animation to visible projects
+            function animateVisibleProjects() {
+                const visibleProjects = document.querySelectorAll('.card:not([style*="display: none"])');
+                visibleProjects.forEach((project, index) => {
+                    setTimeout(() => {
+                        project.style.opacity = '0';
+                        project.style.transform = 'translateY(30px)';
+                        project.offsetHeight; // Trigger reflow
+                        project.style.transition = 'all 0.4s ease';
+                        project.style.opacity = '1';
+                        project.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            }
+            
+            // Animate on initial load
+            setTimeout(animateVisibleProjects, 100);
+            
+            // Re-animate when filter changes
+            const originalFilterByCategory = filterManager.filterByCategory;
+            filterManager.filterByCategory = function(category, activeButton) {
+                originalFilterByCategory.call(this, category, activeButton);
+                setTimeout(animateVisibleProjects, 50);
+            };
+        });
+        
+        function viewProject(projectId) {
+            // In a real implementation, this would open the project repository or demo
+            const projectInfo = {
+                'terminal-site': { name: 'Personal Terminal Website', type: 'GitHub Repository' },
+                'ecommerce': { name: 'E-commerce Platform', type: 'GitHub Repository' },
+                'ecommerce-demo': { name: 'E-commerce Platform', type: 'Live Demo' },
+                'task-manager': { name: 'Task Manager App', type: 'GitHub Repository' },
+                'task-app-store': { name: 'Task Manager App', type: 'App Store' },
+                'task-play-store': { name: 'Task Manager App', type: 'Google Play Store' },
+                'weather-dashboard': { name: 'Weather Dashboard', type: 'GitHub Repository' },
+                'weather-demo': { name: 'Weather Dashboard', type: 'Live Demo' },
+                'api-gateway': { name: 'API Gateway Service', type: 'GitHub Repository' },
+                'api-docs': { name: 'API Gateway Service', type: 'Documentation' },
+                'cli-tools': { name: 'Development CLI Tools', type: 'GitHub Repository' },
+                'cli-pypi': { name: 'Development CLI Tools', type: 'PyPI Package' },
+                'analytics-roadmap': { name: 'Social Media Analytics', type: 'Project Roadmap' }
+            };
+            
+            const info = projectInfo[projectId] || { name: projectId, type: 'Project' };
+            
+            // Create notification for demo
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-primary text-black p-6 rounded-lg shadow-lg z-50 max-w-sm';
+            notification.innerHTML = `
+                <div class="flex items-start gap-3">
+                    <div class="text-2xl">🚀</div>
+                    <div>
+                        <div class="font-bold mb-1">Opening Project</div>
+                        <div class="text-sm mb-2">${info.name}</div>
+                        <div class="text-xs opacity-75">Type: ${info.type}</div>
+                        <div class="text-xs opacity-75 mt-2">In a real implementation, this would open the actual project link.</div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remove notification after 4 seconds
+            setTimeout(() => {
+                notification.style.transition = 'all 0.3s ease';
+                notification.style.transform = 'translateX(100%)';
+                notification.style.opacity = '0';
+                setTimeout(() => notification.remove(), 300);
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
