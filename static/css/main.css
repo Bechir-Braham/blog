@@ -30,27 +30,28 @@
   --color-text-dim: #999999;
   
   /* Typography */
-  --font-family-mono: 'Courier New', monospace;
-  --font-family-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  --font-family-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
+  --font-family-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', 'Helvetica Neue', Arial, sans-serif;
   
-  --font-size-xs: 0.7rem;
-  --font-size-sm: 0.8rem;
-  --font-size-base: 0.9rem;
-  --font-size-lg: 1.1rem;
-  --font-size-xl: 1.2rem;
-  --font-size-2xl: 1.4rem;
-  --font-size-3xl: 1.8rem;
-  --font-size-4xl: 2.2rem;
-  --font-size-5xl: 2.5rem;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
   
-  --font-weight-normal: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
+  --font-weight-normal: 300;
+  --font-weight-medium: 400;
+  --font-weight-semibold: 500;
+  --font-weight-bold: 600;
   
+  /* Line Height */
   --line-height-tight: 1.25;
-  --line-height-normal: 1.5;
-  --line-height-relaxed: 1.6;
+  --line-height-normal: 1.6;
+  --line-height-relaxed: 1.8;
   
   /* Spacing */
   --space-1: 0.25rem;
@@ -117,14 +118,16 @@ html {
 }
 
 body {
-  font-family: var(--font-family-mono);
+  font-family: var(--font-family-system);
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
-  color: var(--color-text-primary);
+  color: var(--color-text-secondary);
   background-color: var(--color-bg-primary);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-weight: var(--font-weight-normal);
+  letter-spacing: 0.01em;
 }
 
 /* ==========================================================================
@@ -145,19 +148,74 @@ body {
 .font-semibold { font-weight: var(--font-weight-semibold); }
 .font-bold { font-weight: var(--font-weight-bold); }
 
+.font-mono { font-family: var(--font-family-mono); }
+.font-system { font-family: var(--font-family-system); }
+
 .leading-tight { line-height: var(--line-height-tight); }
 .leading-normal { line-height: var(--line-height-normal); }
 .leading-relaxed { line-height: var(--line-height-relaxed); }
+
+/* Code elements should use monospace */
+code, kbd, pre, samp {
+  font-family: var(--font-family-mono);
+  font-size: 0.875em;
+  font-weight: var(--font-weight-normal);
+  background-color: var(--color-bg-secondary);
+  padding: 0.125em 0.25em;
+  border-radius: var(--border-radius-sm);
+}
+
+pre {
+  padding: 1rem;
+  overflow-x: auto;
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--border-radius);
+}
+
+pre code {
+  background: none;
+  padding: 0;
+}
+
+/* Improve readability for headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-system);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-secondary);
+  margin-bottom: 0.5em;
+}
+
+h1 { font-size: var(--font-size-3xl); font-weight: var(--font-weight-semibold); }
+h2 { font-size: var(--font-size-2xl); }
+h3 { font-size: var(--font-size-xl); }
+h4 { font-size: var(--font-size-lg); }
+h5 { font-size: var(--font-size-base); }
+h6 { font-size: var(--font-size-sm); }
+
+/* Paragraphs and text elements */
+p {
+  margin-bottom: 1em;
+  color: var(--color-text-muted);
+  line-height: var(--line-height-normal);
+}
+
+/* Button and form elements should use system font */
+button, input, textarea, select {
+  font-family: var(--font-family-system);
+  font-weight: var(--font-weight-normal);
+}
 
 .text-center { text-align: center; }
 .text-left { text-align: left; }
 .text-right { text-align: right; }
 
 /* Color utilities */
-.text-primary { color: var(--color-text-primary); }
+.text-primary { color: var(--color-primary); }
 .text-secondary { color: var(--color-text-secondary); }
 .text-muted { color: var(--color-text-muted); }
 .text-dim { color: var(--color-text-dim); }
+.text-white { color: #ffffff; }
 .text-success { color: var(--color-success); }
 .text-error { color: var(--color-error); }
 .text-warning { color: var(--color-warning); }
@@ -215,6 +273,20 @@ body {
 .mb-12 { margin-bottom: var(--space-12); }
 .mb-16 { margin-bottom: var(--space-16); }
 .mb-20 { margin-bottom: var(--space-20); }
+
+.mr-0 { margin-right: 0; }
+.mr-1 { margin-right: var(--space-1); }
+.mr-2 { margin-right: var(--space-2); }
+.mr-3 { margin-right: var(--space-3); }
+.mr-4 { margin-right: var(--space-4); }
+.mr-5 { margin-right: var(--space-5); }
+
+.ml-0 { margin-left: 0; }
+.ml-1 { margin-left: var(--space-1); }
+.ml-2 { margin-left: var(--space-2); }
+.ml-3 { margin-left: var(--space-3); }
+.ml-4 { margin-left: var(--space-4); }
+.ml-5 { margin-left: var(--space-5); }
 
 .p-0 { padding: 0; }
 .p-1 { padding: var(--space-1); }
@@ -302,14 +374,18 @@ body {
 }
 
 .page-header__title {
-  font-size: var(--font-size-5xl);
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-medium);
   margin-bottom: var(--space-3);
   color: var(--color-primary);
+  font-family: var(--font-family-mono);
 }
 
 .page-header__subtitle {
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-normal);
   color: var(--color-text-muted);
+  font-family: var(--font-family-system);
 }
 
 /* Card Component */
@@ -337,14 +413,18 @@ body {
 }
 
 .card__title {
-  color: var(--color-primary);
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
+  font-family: var(--font-family-system);
   margin-bottom: var(--space-2);
+  line-height: var(--line-height-tight);
 }
 
 .card__content {
   color: var(--color-text-muted);
+  font-family: var(--font-family-system);
+  font-weight: var(--font-weight-normal);
   line-height: var(--line-height-relaxed);
   margin: var(--space-4) 0;
 }

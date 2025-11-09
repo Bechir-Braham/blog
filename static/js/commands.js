@@ -50,8 +50,8 @@ const TerminalCommands = {
     },
 
     clear(terminal) {
-      if (terminal) {
-        terminal.clear();
+      if (terminal && typeof terminal.clearHistory === 'function') {
+        terminal.clearHistory();
       }
       return null; // Don't add output for clear command
     }
@@ -68,7 +68,12 @@ const TerminalCommands = {
     const handler = this.commands[cmd];
     
     if (handler) {
-      return handler(terminal, ...args);
+      // For commands that need terminal reference (like clear), pass it as first parameter
+      if (cmd === 'clear') {
+        return handler(terminal);
+      }
+      // For other commands, just execute them
+      return handler();
     }
     
     return null; // Command not found

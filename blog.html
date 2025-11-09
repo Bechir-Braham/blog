@@ -7,9 +7,29 @@
     <meta name="keywords" content="blog, software development, tutorials, web development, programming">
     <title>Blog - Bechir Braham</title>
     <link rel="stylesheet" href="static/css/main.css">
+    <link rel="stylesheet" href="static/css/terminal.css">
 </head>
-<body class="py-10">
-    <div class="container">
+<body>
+    <main class="terminal" role="main">
+        <header class="terminal__header">
+            <div class="terminal__header-left">
+                <div class="terminal__buttons" aria-hidden="true">
+                    <div class="terminal__button terminal__button--red"></div>
+                    <div class="terminal__button terminal__button--yellow"></div>
+                    <div class="terminal__button terminal__button--green"></div>
+                </div>
+                <div class="terminal__title">bechir@terminal:~</div>
+            </div>
+            <nav class="terminal__nav" role="navigation" aria-label="Main navigation">
+                <a href="index.html" class="terminal__nav-link">home</a>
+                <a href="contact.html" class="terminal__nav-link">contact</a>
+                <a href="resume.html" class="terminal__nav-link">resume</a>
+                <a href="blog.html" class="terminal__nav-link terminal__nav-link--active">blog</a>
+                <a href="projects.html" class="terminal__nav-link">projects</a>
+            </nav>
+        </header>
+
+        <div class="container py-10">
         <header class="page-header">
             <h1 class="page-header__title">$ ls -la ~/blog/</h1>
             <p class="page-header__subtitle">Thoughts, tutorials, and insights from Bechir Braham</p>
@@ -333,5 +353,6 @@
             });
         }
     </script>
+    </main>
 </body>
 </html>

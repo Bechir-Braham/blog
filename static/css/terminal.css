@@ -10,6 +10,7 @@
   background: linear-gradient(45deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
   position: relative;
   overflow: hidden;
+  font-family: var(--font-family-mono);
 }
 
 .terminal__header {
@@ -66,6 +67,13 @@
 .terminal__nav-link:hover {
   border-color: var(--color-primary);
   background-color: var(--color-primary-dim);
+  color: var(--color-primary)
+}
+
+.terminal__nav-link--active {
+  background-color: var(--color-primary);
+  color: var(--color-bg-primary);
+  border-color: var(--color-primary);
 }
 
 .terminal__content {

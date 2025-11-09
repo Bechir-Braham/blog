@@ -5,16 +5,21 @@
  * Used only by: index.html
  */
 class TerminalCore {
-  constructor() {
+  constructor(config = {}) {
     this.history = [];
     this.historyIndex = -1;
     this.currentCommand = '';
     
-    this.terminalHistory = document.getElementById('terminal-history');
-    this.terminalInput = document.getElementById('terminal-input');
+    // Use config if provided, otherwise fallback to DOM query
+    this.terminalHistory = config.commandHistoryElement || document.getElementById('commandHistory');
+    this.terminalInput = config.userInputElement || document.getElementById('userInput');
+    this.availableCommands = config.availableCommands || [];
+    this.commands = new Map();
     
     if (!this.terminalHistory || !this.terminalInput) {
       console.warn('Terminal: Required elements not found');
+      console.warn('History element:', this.terminalHistory);
+      console.warn('Input element:', this.terminalInput);
       return;
     }
     
@@ -24,6 +29,8 @@ class TerminalCore {
   init() {
     this.bindEvents();
     this.displayWelcomeMessage();
+    // Focus the input field
+    this.terminalInput.focus();
   }
   
   bindEvents() {
@@ -73,20 +80,20 @@ class TerminalCore {
     this.scrollToBottom();
   }
   
+  registerCommand(name, handler) {
+    this.commands.set(name.toLowerCase(), handler);
+  }
+  
   processCommand(input) {
     const args = input.toLowerCase().split(' ');
     const command = args[0];
     
     let output = '';
     
-    // Import commands dynamically if available
-    if (typeof window.Commands !== 'undefined') {
-      const commandFunction = window.Commands[command];
-      if (commandFunction && typeof commandFunction === 'function') {
-        output = commandFunction(args);
-      } else if (command) {
-        output = this.getUnknownCommandMessage(command);
-      }
+    // Check registered commands first
+    if (this.commands.has(command)) {
+      const handler = this.commands.get(command);
+      output = handler(input);
     } else {
       // Fallback for basic commands
       switch(command) {
@@ -139,9 +146,9 @@ class TerminalCore {
   
   handleTabCompletion() {
     const input = this.terminalInput.value;
-    const commands = ['help', 'about', 'skills', 'projects', 'contact', 'clear', 'ls'];
+    const availableCommands = [...this.commands.keys(), 'help', 'clear', 'ls'];
     
-    const matches = commands.filter(cmd => cmd.startsWith(input.toLowerCase()));
+    const matches = availableCommands.filter(cmd => cmd.startsWith(input.toLowerCase()));
     
     if (matches.length === 1) {
       this.terminalInput.value = matches[0];
@@ -163,36 +170,13 @@ class TerminalCore {
   }
   
   displayWelcomeMessage() {
-    const welcomeMessage = `
-      <div class="text-center mb-6">
-        <pre class="text-primary text-xs leading-tight" aria-label="ASCII Art: Bechir">
-██████  ███████  ██████ ██   ██ ██ ██████  
-██   ██ ██      ██      ██   ██ ██ ██   ██ 
-██████  █████   ██      ███████ ██ ██████  
-██   ██ ██      ██      ██   ██ ██ ██   ██ 
-██████  ███████  ██████ ██   ██ ██ ██   ██ 
-        </pre>
-      </div>
-      <div class="text-center mb-8">
-        <div class="text-primary text-lg font-semibold">Welcome to Bechir's Terminal</div>
-        <div class="text-muted text-sm mt-2">Full-Stack Developer • Software Engineer • Tech Enthusiast</div>
-        <div class="text-muted text-xs mt-2">Type 'help' for available commands</div>
-      </div>
-    `;
-    this.addToHistory(welcomeMessage);
+    // No welcome message - clean terminal start
   }
   
   scrollToBottom() {
     this.terminalHistory.scrollTop = this.terminalHistory.scrollHeight;
   }
 }
-
-// Auto-initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-  if (document.getElementById('terminal-history') && document.getElementById('terminal-input')) {
-    new TerminalCore();
-  }
-});
 
 // Export for potential external use
 if (typeof module !== 'undefined' && module.exports) {
