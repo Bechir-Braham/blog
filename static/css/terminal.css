@@ -8,8 +8,6 @@
   height: 100vh;
   padding: var(--space-5);
   background: linear-gradient(45deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
-  position: relative;
-  overflow: hidden;
   font-family: var(--font-family-mono);
 }
 
