@@ -1,12 +1,24 @@
-import { Component, ElementRef, OnInit, ViewChild, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { 
+  Component, 
+  ElementRef, 
+  OnInit, 
+  OnDestroy, 
+  ViewChild, 
+  AfterViewInit, 
+  ChangeDetectorRef,
+  inject
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TerminalCommandsService } from '../../services/terminal-commands';
 
-interface HistoryItem {
-  command: string;
-  output: string;
-  timestamp: Date;
+interface TerminalHistoryItem {
+  readonly command: string;
+  readonly output: string;
+  readonly timestamp: Date;
 }
+
+type HistoryDirection = 'up' | 'down';
+type KeyboardAction = 'enter' | 'arrowUp' | 'arrowDown' | 'tab';
 
 @Component({
   selector: 'app-terminal',
@@ -14,157 +26,223 @@ interface HistoryItem {
   templateUrl: './terminal.html',
   styleUrl: './terminal.css',
 })
-export class TerminalComponent implements OnInit, AfterViewInit, AfterViewChecked {
-  @ViewChild('terminalInput') terminalInput!: ElementRef<HTMLInputElement>;
-  @ViewChild('terminalContent') terminalContent!: ElementRef<HTMLDivElement>;
+export class TerminalComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('terminalInput', { static: true }) 
+  private readonly terminalInput!: ElementRef<HTMLInputElement>;
+  
+  @ViewChild('terminalContent', { static: true }) 
+  private readonly terminalContent!: ElementRef<HTMLDivElement>;
 
-  history: string[] = [];
-  historyIndex = -1;
-  terminalOutput: HistoryItem[] = [];
-  private shouldAutoScroll = true;
+  // Public properties for template
+  readonly terminalOutput: TerminalHistoryItem[] = [];
+  
+  // Private state management
+  private readonly commandHistory: string[] = [];
+  private historyIndex = -1;
+  
+  // Dependency injection
+  private readonly commandService = inject(TerminalCommandsService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
-  constructor(private commandService: TerminalCommandsService) {}
+  // Built-in commands configuration
+  private readonly builtInCommands = new Map<string, () => string>([
+    ['clear', () => this.handleClearCommand()],
+    ['sudo', () => '<div class="text-error">Nice try! This is a frontend terminal 😉</div>'],
+    ['exit', () => '<div class="text-error">Cannot exit browser terminal. Try closing the tab instead!</div>']
+  ]);
 
-  ngOnInit() {
-    // Component initialization
+  ngOnInit(): void {
+    this.initializeTerminal();
   }
 
-  ngAfterViewInit() {
-    // Focus the input field
+  ngAfterViewInit(): void {
+    this.setupTerminalInput();
+  }
+
+  ngOnDestroy(): void {
+    this.cleanup();
+  }
+
+  // Public methods for template
+  onKeyDown(event: KeyboardEvent): void {
+    const action = this.mapKeyToAction(event.key);
+    if (!action) return;
+
+    event.preventDefault();
+    this.handleKeyboardAction(action);
+  }
+
+  // Private initialization methods
+  private initializeTerminal(): void {
+    // Initialize terminal state if needed
+  }
+
+  private setupTerminalInput(): void {
+    this.focusInput();
+  }
+
+  private cleanup(): void {
+    // Cleanup resources if needed
+  }
+
+  private focusInput(): void {
     this.terminalInput.nativeElement.focus();
+  }
+
+  // Keyboard handling
+  private mapKeyToAction(key: string): KeyboardAction | null {
+    const keyMap: Record<string, KeyboardAction> = {
+      'Enter': 'enter',
+      'ArrowUp': 'arrowUp',
+      'ArrowDown': 'arrowDown',
+      'Tab': 'tab'
+    };
+    return keyMap[key] || null;
+  }
+
+  private handleKeyboardAction(action: KeyboardAction): void {
+    const actionHandlers: Record<KeyboardAction, () => void> = {
+      enter: () => this.executeCommand(),
+      arrowUp: () => this.navigateHistory('up'),
+      arrowDown: () => this.navigateHistory('down'),
+      tab: () => this.handleTabCompletion()
+    };
     
-    // Add scroll event listener to detect manual scrolling
-    this.terminalContent.nativeElement.addEventListener('scroll', () => {
-      // If user scrolls up manually, disable auto-scroll temporarily
-      if (!this.isScrolledNearBottom()) {
-        this.shouldAutoScroll = false;
-      }
-    });
+    actionHandlers[action]();
   }
 
-  ngAfterViewChecked() {
-    // Auto-scroll to bottom when new content is added
-    if (this.shouldAutoScroll) {
-      this.scrollToBottom();
-      this.shouldAutoScroll = false; // Reset flag after scrolling
-    }
-  }
-
-  onKeyDown(event: KeyboardEvent) {
-    switch(event.key) {
-      case 'Enter':
-        event.preventDefault();
-        this.executeCommand();
-        break;
-      case 'ArrowUp':
-        event.preventDefault();
-        this.navigateHistory('up');
-        break;
-      case 'ArrowDown':
-        event.preventDefault();
-        this.navigateHistory('down');
-        break;
-      case 'Tab':
-        event.preventDefault();
-        this.handleTabCompletion();
-        break;
-    }
-  }
-
-  executeCommand() {
-    const input = this.terminalInput.nativeElement.value.trim();
+  // Command execution
+  private executeCommand(): void {
+    const input = this.getCurrentInput();
     if (!input) return;
 
-    // Add to history
-    this.history.push(input);
-    this.historyIndex = this.history.length;
+    this.addToHistory(input);
+    const output = this.processCommand(input);
+    
+    if (input.toLowerCase() !== 'clear') {
+      this.addToOutput(input, output);
+    }
+    
+    this.clearInput();
+    this.autoScrollToBottom();
+  }
 
-    let output = '';
+  private getCurrentInput(): string {
+    return this.terminalInput.nativeElement.value.trim();
+  }
 
-    // Handle built-in commands
-    if (input.toLowerCase() === 'clear') {
-      this.terminalOutput = [];
-      this.terminalInput.nativeElement.value = '';
-      return;
-    } else if (input.toLowerCase() === 'sudo') {
-      output = `<div class="text-error">Nice try! This is a frontend terminal 😉</div>`;
-    } else if (input.toLowerCase() === 'exit') {
-      output = `<div class="text-error">Cannot exit browser terminal. Try closing the tab instead!</div>`;
-    } else {
-      // Try to execute command via service
-      const result = this.commandService.executeCommand(input);
-      if (result !== null) {
-        output = result;
-      } else {
-        output = `<div class="text-error">Command '${input}' not found.</div><div class="text-muted">Type 'help' for available commands.</div>`;
-      }
+  private addToHistory(command: string): void {
+    this.commandHistory.push(command);
+    this.historyIndex = this.commandHistory.length;
+  }
+
+  private processCommand(input: string): string {
+    const command = input.toLowerCase();
+    
+    // Check built-in commands first
+    const builtInHandler = this.builtInCommands.get(command);
+    if (builtInHandler) {
+      return builtInHandler();
     }
 
-    // Add to terminal output
-    this.terminalOutput.push({
-      command: input,
-      output: output,
+    // Try external command service
+    const result = this.commandService.executeCommand(input);
+    return result ?? this.getCommandNotFoundMessage(input);
+  }
+
+  private handleClearCommand(): string {
+    this.clearTerminalOutput();
+    return '';
+  }
+
+  private clearTerminalOutput(): void {
+    (this.terminalOutput as TerminalHistoryItem[]).length = 0;
+  }
+
+  private getCommandNotFoundMessage(command: string): string {
+    return `<div class="text-error">Command '${command}' not found.</div><div class="text-muted">Type 'help' for available commands.</div>`;
+  }
+
+  private addToOutput(command: string, output: string): void {
+    const newItem: TerminalHistoryItem = {
+      command,
+      output,
       timestamp: new Date()
-    });
+    };
+    
+    (this.terminalOutput as TerminalHistoryItem[]).push(newItem);
+  }
 
-    // Clear input
+  private clearInput(): void {
     this.terminalInput.nativeElement.value = '';
-    
-    // Ensure auto-scroll happens after new output
-    this.shouldAutoScroll = true;
-    
-    // Force immediate scroll as backup
-    setTimeout(() => this.scrollToBottom(), 10);
   }
 
-  navigateHistory(direction: 'up' | 'down') {
-    if (this.history.length === 0) return;
-
-    if (direction === 'up') {
-      if (this.historyIndex > 0) {
-        this.historyIndex--;
-        this.terminalInput.nativeElement.value = this.history[this.historyIndex];
-      }
-    } else if (direction === 'down') {
-      if (this.historyIndex < this.history.length - 1) {
-        this.historyIndex++;
-        this.terminalInput.nativeElement.value = this.history[this.historyIndex];
-      } else {
-        this.historyIndex = this.history.length;
-        this.terminalInput.nativeElement.value = '';
-      }
-    }
+  private autoScrollToBottom(): void {
+    // Use requestAnimationFrame for smooth scrolling
+    requestAnimationFrame(() => {
+      this.scrollToBottom();
+    });
   }
 
-  handleTabCompletion() {
-    const input = this.terminalInput.nativeElement.value;
-    const availableCommands = [...this.commandService.getCommandNames(), 'clear', 'sudo', 'exit'];
-    
-    const matches = availableCommands.filter(cmd => cmd.startsWith(input.toLowerCase()));
-    
-    if (matches.length === 1) {
-      this.terminalInput.nativeElement.value = matches[0];
-    } else if (matches.length > 1) {
-      // Show available matches
-      this.terminalOutput.push({
-        command: input,
-        output: `<div class="text-muted">Available: ${matches.join(', ')}</div>`,
-        timestamp: new Date()
-      });
-      this.shouldAutoScroll = true;
-    }
-  }
-
-  scrollToBottom() {
-    const contentElement = this.terminalContent.nativeElement;
-    contentElement.scrollTop = contentElement.scrollHeight;
-  }
-
-  private isScrolledNearBottom(): boolean {
-    if (!this.terminalContent?.nativeElement) return true;
-    
+  private scrollToBottom(): void {
     const element = this.terminalContent.nativeElement;
-    const threshold = 50; // pixels from bottom
-    return (element.scrollTop + element.clientHeight >= element.scrollHeight - threshold);
+    element.scrollTop = element.scrollHeight;
+  }
+
+  // History navigation
+  private navigateHistory(direction: HistoryDirection): void {
+    if (this.commandHistory.length === 0) return;
+
+    const newIndex = this.calculateNewHistoryIndex(direction);
+    this.historyIndex = newIndex;
+    this.setInputFromHistory();
+  }
+
+  private calculateNewHistoryIndex(direction: HistoryDirection): number {
+    if (direction === 'up') {
+      return Math.max(0, this.historyIndex - 1);
+    } else {
+      return Math.min(this.commandHistory.length, this.historyIndex + 1);
+    }
+  }
+
+  private setInputFromHistory(): void {
+    const command = this.historyIndex < this.commandHistory.length 
+      ? this.commandHistory[this.historyIndex] 
+      : '';
+    this.terminalInput.nativeElement.value = command;
+  }
+
+  // Tab completion
+  private handleTabCompletion(): void {
+    const input = this.getCurrentInput();
+    const suggestions = this.getCommandSuggestions(input);
+    
+    if (suggestions.length === 1) {
+      this.completeCommand(suggestions[0]);
+    } else if (suggestions.length > 1) {
+      this.showSuggestions(input, suggestions);
+    }
+  }
+
+  private getCommandSuggestions(input: string): string[] {
+    const allCommands = [
+      ...this.commandService.getCommandNames(),
+      ...Array.from(this.builtInCommands.keys())
+    ];
+    
+    return allCommands.filter(cmd => 
+      cmd.toLowerCase().startsWith(input.toLowerCase())
+    );
+  }
+
+  private completeCommand(command: string): void {
+    this.terminalInput.nativeElement.value = command;
+  }
+
+  private showSuggestions(input: string, suggestions: string[]): void {
+    const output = `<div class="text-muted">Available: ${suggestions.join(', ')}</div>`;
+    this.addToOutput(input, output);
+    this.autoScrollToBottom();
   }
 }
