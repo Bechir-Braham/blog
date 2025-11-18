@@ -25,13 +25,22 @@ export class MarkdownService {
     }
 
     // Dynamic import to avoid SSR issues
-    import('mermaid').then((mermaid) => {
-      mermaid.default.initialize({
+    import('mermaid').then((mermaidModule) => {
+      mermaidModule.default.initialize({
         startOnLoad: false,
         theme: 'dark',
+        themeVariables: {
+          primaryColor: '#00ff00',
+          primaryTextColor: '#ffffff',
+          primaryBorderColor: '#74c0fc',
+          lineColor: '#74c0fc',
+          secondaryColor: '#1a1a1a',
+          tertiaryColor: '#0a0a0a'
+        },
         flowchart: {
           useMaxWidth: true,
-          htmlLabels: true
+          htmlLabels: true,
+          curve: 'basis'
         },
         sequence: {
           useMaxWidth: true
@@ -41,6 +50,7 @@ export class MarkdownService {
         }
       });
       this.mermaidInitialized = true;
+      console.log('Mermaid initialized successfully');
     }).catch(error => {
       console.error('Failed to load Mermaid:', error);
     });
@@ -103,43 +113,71 @@ export class MarkdownService {
       return;
     }
 
-    // Ensure Mermaid is loaded and initialized
-    if (!this.mermaidInitialized) {
-      await new Promise(resolve => {
-        const checkInitialized = () => {
-          if (this.mermaidInitialized) {
-            resolve(void 0);
-          } else {
-            setTimeout(checkInitialized, 100);
-          }
-        };
-        checkInitialized();
-      });
-    }
+    console.log('Starting Mermaid diagram rendering...');
 
-    const mermaid = await import('mermaid');
-    const mermaidElements = element.querySelectorAll('.mermaid');
-    
-    for (let i = 0; i < mermaidElements.length; i++) {
-      const el = mermaidElements[i] as HTMLElement;
-      if (el.getAttribute('data-processed') !== 'true') {
-        try {
-          const graphDefinition = el.textContent || '';
-          const elementId = el.id || `mermaid-diagram-${Date.now()}-${i}`;
-          
-          // Render the diagram
-          const { svg } = await mermaid.default.render(elementId, graphDefinition);
-          
-          // Insert the SVG
-          el.innerHTML = svg;
-          el.setAttribute('data-processed', 'true');
-        } catch (error) {
-          console.error('Mermaid rendering failed:', error);
-          el.innerHTML = `<div class="error" style="color: #ff6b6b; padding: 1rem; text-align: center;">
-            Error rendering diagram: ${error instanceof Error ? error.message : 'Unknown error'}
-          </div>`;
+    try {
+      // Ensure Mermaid is loaded and initialized
+      if (!this.mermaidInitialized) {
+        console.log('Waiting for Mermaid initialization...');
+        await this.initializeMermaid();
+        await new Promise(resolve => {
+          const checkInitialized = () => {
+            if (this.mermaidInitialized) {
+              console.log('Mermaid initialization complete');
+              resolve(void 0);
+            } else {
+              setTimeout(checkInitialized, 50);
+            }
+          };
+          checkInitialized();
+        });
+      }
+
+      const mermaidModule = await import('mermaid');
+      const mermaidElements = element.querySelectorAll('.mermaid');
+      
+      console.log(`Found ${mermaidElements.length} Mermaid diagrams to render`);
+
+      for (let i = 0; i < mermaidElements.length; i++) {
+        const el = mermaidElements[i] as HTMLElement;
+        if (el.getAttribute('data-processed') !== 'true') {
+          try {
+            const graphDefinition = el.textContent?.trim() || '';
+            const elementId = el.id || `mermaid-diagram-${Date.now()}-${i}`;
+            
+            console.log(`Rendering diagram ${i + 1}:`, graphDefinition.substring(0, 50) + '...');
+            
+            // Clear any existing content and show loading
+            el.innerHTML = '<div style="color: #74c0fc; text-align: center; padding: 1rem;">Rendering diagram...</div>';
+            
+            // Add a small delay to ensure DOM is ready
+            await new Promise(resolve => setTimeout(resolve, 100));
+            
+            // Render the diagram
+            const { svg } = await mermaidModule.default.render(elementId + '-svg', graphDefinition);
+            
+            // Insert the SVG
+            el.innerHTML = svg;
+            el.setAttribute('data-processed', 'true');
+            
+            console.log(`Successfully rendered diagram ${i + 1}`);
+          } catch (error) {
+            console.error(`Mermaid rendering failed for diagram ${i + 1}:`, error);
+            el.innerHTML = `<div class="error" style="color: #ff6b6b; padding: 1rem; text-align: center; border: 1px solid #ff6b6b; border-radius: 4px; background: rgba(255, 107, 107, 0.1);">
+              <strong>Diagram Rendering Error</strong><br>
+              ${error instanceof Error ? error.message : 'Unknown error'}
+              <details style="margin-top: 0.5rem;">
+                <summary style="cursor: pointer;">Show diagram code</summary>
+                <pre style="text-align: left; margin-top: 0.5rem; padding: 0.5rem; background: #0a0a0a; border-radius: 4px; overflow-x: auto;">${el.textContent}</pre>
+              </details>
+            </div>`;
+          }
         }
       }
+      
+      console.log('Mermaid diagram rendering complete');
+    } catch (error) {
+      console.error('Failed to render Mermaid diagrams:', error);
     }
   }
 

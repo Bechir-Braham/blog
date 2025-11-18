@@ -45,7 +45,10 @@ export class BlogPostComponent implements OnInit, AfterViewChecked, OnDestroy {
   ngAfterViewChecked(): void {
     // Only render Mermaid diagrams on the browser, not during SSR
     if (isPlatformBrowser(this.platformId) && this.content && !this.isLoading && !this.contentRendered) {
-      this.renderMermaidDiagrams();
+      // Add a small delay to ensure the content is fully rendered in the DOM
+      setTimeout(() => {
+        this.renderMermaidDiagrams();
+      }, 100);
       this.contentRendered = true;
     }
   }
@@ -57,9 +60,11 @@ export class BlogPostComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
     
     try {
+      console.log('Blog post component: Starting Mermaid rendering...');
       await this.markdownService.renderMermaidDiagrams(this.elementRef.nativeElement);
+      console.log('Blog post component: Mermaid rendering completed');
     } catch (error) {
-      console.error('Failed to render Mermaid diagrams:', error);
+      console.error('Blog post component: Failed to render Mermaid diagrams:', error);
     }
   }
 
