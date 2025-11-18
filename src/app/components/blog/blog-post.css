@@ -280,104 +280,16 @@
   color: #fb7185;
 }
 
-/* Mermaid diagram styling */
+/* Mermaid diagram container - minimal styling */
 :host ::ng-deep .mermaid-container {
   margin: 2rem 0;
-  padding: 1.5rem;
-  background-color: #000000;
-  border: 1px solid var(--primary);
+  padding: 1rem;
   border-radius: 8px;
   text-align: center;
   overflow-x: auto;
 }
 
-:host ::ng-deep .mermaid {
-  background-color: transparent !important;
-  font-family: Monaco, "Courier New", monospace !important;
-}
-
 :host ::ng-deep .mermaid svg {
   max-width: 100%;
   height: auto;
-  background-color: transparent;
-  font-family: Monaco, "Courier New", monospace !important;
-}
-
-/* Text rendering fixes for Mermaid */
-:host ::ng-deep .mermaid .nodeLabel,
-:host ::ng-deep .mermaid .label,
-:host ::ng-deep .mermaid .labelText,
-:host ::ng-deep .mermaid text {
-  fill: #ffffff !important;
-  color: #ffffff !important;
-  font-family: Monaco, "Courier New", monospace !important;
-  font-size: 14px !important;
-  font-weight: 400 !important;
-}
-
-/* Node styling */
-:host ::ng-deep .mermaid .node rect,
-:host ::ng-deep .mermaid .node circle,
-:host ::ng-deep .mermaid .node ellipse,
-:host ::ng-deep .mermaid .node polygon,
-:host ::ng-deep .mermaid .node path {
-  fill: #1a1a1a !important;
-  stroke: #00d7ff !important;
-  stroke-width: 2px !important;
-}
-
-/* Edge styling */
-:host ::ng-deep .mermaid .edgePath path {
-  stroke: #00d7ff !important;
-  stroke-width: 2px !important;
-}
-
-:host ::ng-deep .mermaid .arrowheadPath {
-  fill: #00d7ff !important;
-  stroke: #00d7ff !important;
-}
-
-/* Cluster/subgraph styling */
-:host ::ng-deep .mermaid .cluster rect {
-  fill: #1a1a1a !important;
-  stroke: #00d7ff !important;
-  stroke-width: 1px !important;
-}
-
-/* Sequence diagram styling */
-:host ::ng-deep .mermaid .actor {
-  fill: #1a1a1a !important;
-  stroke: #00d7ff !important;
-}
-
-:host ::ng-deep .mermaid .messageLine0,
-:host ::ng-deep .mermaid .messageLine1 {
-  stroke: #00d7ff !important;
-}
-
-/* Entity relationship diagram styling */
-:host ::ng-deep .mermaid .er.entityBox {
-  fill: #1a1a1a !important;
-  stroke: #00d7ff !important;
-}
-
-:host ::ng-deep .mermaid .er.relationshipLine {
-  stroke: #00d7ff !important;
-}
-
-/* GitGraph styling */
-:host ::ng-deep .mermaid .commit-id,
-:host ::ng-deep .mermaid .commit-msg {
-  fill: #ffffff !important;
-  font-family: Monaco, "Courier New", monospace !important;
-}
-
-/* State diagram styling */
-:host ::ng-deep .mermaid .statediagram-state .divider {
-  stroke: #00d7ff !important;
-}
-
-:host ::ng-deep .mermaid .statediagram-state .state-title {
-  fill: #ffffff !important;
-  font-family: Monaco, "Courier New", monospace !important;
 }

@@ -17,35 +17,7 @@ export class MarkdownService {
   private initializeMermaid(): void {
     mermaid.initialize({
       startOnLoad: false,
-      theme: 'base',
-      themeVariables: {
-        // Background colors
-        primaryColor: '#1a1a1a',
-        primaryTextColor: '#ffffff',
-        primaryBorderColor: '#00d7ff',
-        
-        // Node colors
-        secondaryColor: '#2a2a2a',
-        tertiaryColor: '#3a3a3a',
-        
-        // Text colors
-        textColor: '#ffffff',
-        nodeTextColor: '#ffffff',
-        labelTextColor: '#ffffff',
-        
-        // Line colors
-        lineColor: '#00d7ff',
-        edgeLabelBackground: '#1a1a1a',
-        
-        // Background
-        background: '#000000',
-        mainBkg: '#1a1a1a',
-        secondBkg: '#2a2a2a',
-        
-        // Additional text settings
-        fontFamily: 'Monaco, "Courier New", monospace',
-        fontSize: '14px'
-      },
+      theme: 'dark',
       flowchart: {
         useMaxWidth: true,
         htmlLabels: true
@@ -120,21 +92,12 @@ export class MarkdownService {
           const graphDefinition = el.textContent || '';
           const elementId = el.id || `mermaid-diagram-${Date.now()}-${i}`;
           
-          // Clear any existing content
-          el.innerHTML = '';
-          
           // Render the diagram
           const { svg } = await mermaid.render(elementId, graphDefinition);
           
           // Insert the SVG
           el.innerHTML = svg;
           el.setAttribute('data-processed', 'true');
-          
-          // Force font rendering
-          const svgElement = el.querySelector('svg');
-          if (svgElement) {
-            svgElement.style.fontFamily = 'Monaco, "Courier New", monospace';
-          }
         } catch (error) {
           console.error('Mermaid rendering failed:', error);
           el.innerHTML = `<div class="error" style="color: #ff6b6b; padding: 1rem; text-align: center;">
