@@ -31,22 +31,130 @@
   margin-bottom: 1rem;
 }
 
-.blog-content ul,
-.blog-content ol {
-  margin-bottom: 1rem;
-  margin-left: 2rem;
+/* Blog content container - ensure proper cascade */
+.blog-content {
+  color: var(--text-color);
+  line-height: 1.7;
 }
 
-.blog-content li {
-  margin-bottom: 0.5rem;
+/* Use ::ng-deep to escape Angular's CSS encapsulation for markdown content */
+:host ::ng-deep .blog-content ul,
+:host ::ng-deep .blog-content ol {
+  margin: 0 0 1.5rem 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+  list-style-type: none !important;
+  list-style-image: none !important;
 }
 
-.blog-content ul li {
-  list-style: disc;
+:host ::ng-deep .blog-content ul li,
+:host ::ng-deep .blog-content ol li {
+  margin: 0 0 0.75rem 0 !important;
+  padding: 0 0 0 2rem !important;
+  position: relative !important;
+  list-style: none !important;
+  list-style-type: none !important;
+  list-style-image: none !important;
+  display: block !important;
+  line-height: 1.6 !important;
 }
 
-.blog-content ol li {
-  list-style: decimal;
+/* Remove browser default markers */
+:host ::ng-deep .blog-content ul li::marker,
+:host ::ng-deep .blog-content ol li::marker,
+:host ::ng-deep .blog-content li::marker {
+  content: "" !important;
+  display: none !important;
+}
+
+:host ::ng-deep .blog-content ul li::-webkit-details-marker,
+:host ::ng-deep .blog-content ol li::-webkit-details-marker {
+  display: none !important;
+}
+
+/* Custom bullet points for unordered lists */
+:host ::ng-deep .blog-content ul li::before {
+  content: "▶" !important;
+  color: #fbbf24 !important; /* Yellow arrows for bullets */
+  position: absolute !important;
+  left: 0.5rem !important;
+  top: 0.1rem !important;
+  font-size: 0.9rem !important;
+  line-height: 1.4 !important;
+  width: 1rem !important;
+  height: 1rem !important;
+  display: block !important;
+  z-index: 10 !important;
+  text-align: center !important;
+}
+
+/* Custom numbering for ordered lists */
+:host ::ng-deep .blog-content ol {
+  counter-reset: list-counter !important;
+}
+
+:host ::ng-deep .blog-content ol li {
+  counter-increment: list-counter !important;
+}
+
+:host ::ng-deep .blog-content ol li::before {
+  content: counter(list-counter) "." !important;
+  color: #74c0fc !important; /* Blue color for numbers */
+  position: absolute !important;
+  left: 0.25rem !important;
+  top: 0.1rem !important;
+  font-weight: bold !important;
+  font-size: 1rem !important;
+  line-height: 1.4 !important;
+  width: 1.5rem !important;
+  height: 1rem !important;
+  display: block !important;
+  z-index: 10 !important;
+  text-align: left !important;
+}
+
+/* Nested lists */
+:host ::ng-deep .blog-content ul ul li,
+:host ::ng-deep .blog-content ol ol li,
+:host ::ng-deep .blog-content ul ol li,
+:host ::ng-deep .blog-content ol ul li {
+  margin-left: 1rem !important;
+}
+
+:host ::ng-deep .blog-content ul ul li::before {
+  content: "▷" !important;
+  color: #60a5fa !important; /* Light blue for nested bullets */
+}
+
+:host ::ng-deep .blog-content ul ul ul li::before {
+  content: "•" !important;
+  color: #d1d5db !important; /* Gray for third level */
+}
+
+/* Link styling for better visibility on dark background */
+:host ::ng-deep .blog-content a {
+  color: #74c0fc !important; /* Light blue for better visibility */
+  text-decoration: underline !important;
+  transition: color 0.3s ease !important;
+}
+
+:host ::ng-deep .blog-content a:hover {
+  color: #fbbf24 !important; /* Yellow on hover */
+  text-decoration: none !important;
+}
+
+:host ::ng-deep .blog-content a:visited {
+  color: #a78bfa !important; /* Purple for visited links */
+}
+
+/* Paragraph spacing within lists */
+.blog-content li p {
+  margin-bottom: 0.5rem !important;
+  margin-top: 0 !important;
+}
+
+.blog-content li p:last-child {
+  margin-bottom: 0 !important;
 }
 
 .blog-content blockquote {

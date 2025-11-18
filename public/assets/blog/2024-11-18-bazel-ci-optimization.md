@@ -2,7 +2,7 @@
 
 *Published on November 18, 2024 • 12 min read*
 
-![Bazel Build Optimization](assets/blog/images/2024-11-18/bazel-optimization.jpg)
+![Bazel Build Optimization](assets/blog/images/2024-11-18/bazel-optimization.svg)
 
 ## Introduction
 
