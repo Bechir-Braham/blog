@@ -1,12 +1,12 @@
 <div class="container py-10">
     <header class="page-header">
         <h1 class="page-header__title">$ cat resume.txt</h1>
-        <p class="page-header__subtitle">Bechir Braham - Software Developer</p>
+        <p class="page-header__subtitle">Bechir Braham - Software Engineer</p>
         <div class="flex gap-4 justify-center mt-4 flex-wrap">
             <button class="btn btn--secondary btn--small" (click)="downloadResume()" aria-label="Download resume as PDF">
                 📄 Download PDF
             </button>
-            <a href="mailto:bechir.braham@example.com" class="btn btn--secondary btn--small">
+            <a [href]="'mailto:' + personalInfo.email" class="btn btn--secondary btn--small">
                 📧 Email Me
             </a>
         </div>
@@ -144,14 +144,17 @@
             }
         </section>
         
-        <!-- Certifications & Achievements -->
+        <!-- Certifications -->
         <section class="card" aria-labelledby="certifications">
-            <h2 id="certifications" class="card__title mb-6">Certifications & Achievements</h2>
+            <h2 id="certifications" class="card__title mb-6">Certifications</h2>
             <div class="card__content">
                 <ul class="list list--achievements space-y-3">
                     @for (cert of certifications; track cert.id) {
-                        <li class="flex justify-between items-center">
-                            <span>{{ cert.name }}</span>
+                        <li class="flex justify-between items-start">
+                            <div class="flex-1">
+                                <span class="font-semibold">{{ cert.name }}</span>
+                                <div class="text-info text-sm">{{ cert.institution }}</div>
+                            </div>
                             <span [class]="'tag ' + cert.tagClass">{{ cert.year }}</span>
                         </li>
                     }
@@ -159,23 +162,28 @@
             </div>
         </section>
         
-        <!-- Notable Projects -->
-        <section class="card" aria-labelledby="projects">
-            <h2 id="projects" class="card__title mb-6">Notable Projects</h2>
+        <!-- Publications -->
+        <section class="card" aria-labelledby="publications">
+            <h2 id="publications" class="card__title mb-6">Publications</h2>
             
-            @for (project of notableProjects; track project.id) {
+            @for (pub of publications; track pub.id) {
                 <article class="mb-6 p-4 bg-primary-dim rounded border-l-4 border-primary">
-                    <h3 class="text-primary text-lg font-semibold mb-2">{{ project.name }}</h3>
-                    <p class="card__content">
-                        {{ project.description }}
-                    </p>
-                    <div class="flex flex-wrap gap-2 mt-3">
-                        @for (tech of project.technologies; track tech) {
-                            <span class="tag tag--secondary">{{ tech }}</span>
-                        }
+                    <h3 class="text-primary text-lg font-semibold mb-2">{{ pub.title }}</h3>
+                    <div class="card__content space-y-1">
+                        <p class="text-secondary">{{ pub.authors }}</p>
+                        <p class="text-info text-sm">{{ pub.journal }}</p>
+                        <span class="tag tag--secondary">{{ pub.type }} - {{ pub.year }}</span>
                     </div>
                 </article>
             }
+        </section>
+
+        <!-- Language Skills -->
+        <section class="card" aria-labelledby="languages">
+            <h2 id="languages" class="card__title mb-5">Language Skills</h2>
+            <p class="card__content leading-relaxed">
+                {{ languages }}
+            </p>
         </section>
     </main>
     
