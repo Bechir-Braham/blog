@@ -4,7 +4,7 @@ import * as path from 'path';
 import { fileURLToPath } from 'url';
 
 export const serverRoutes: ServerRoute[] = [
-  // Only the most basic static routes that don't require any HTTP calls
+  // Prerender static routes for GitHub Pages deployment
   {
     path: '',
     renderMode: RenderMode.Prerender
@@ -23,11 +23,11 @@ export const serverRoutes: ServerRoute[] = [
   },
   {
     path: 'blog',
-    renderMode: RenderMode.Client  // Use CSR for blog routes temporarily
+    renderMode: RenderMode.Client  // Use CSR for blog to avoid asset loading issues during prerender
   },
   {
     path: 'blog/:slug',
-    renderMode: RenderMode.Client  // Use CSR for blog posts temporarily
+    renderMode: RenderMode.Client  // Use CSR for blog posts to avoid asset loading issues during prerender
   },
   {
     path: '**',
