@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { TerminalComponent } from './terminal/terminal';
-import { ContactComponent } from './contact/contact';
-import { ResumeComponent } from './resume/resume';
-import { BlogComponent } from './blog/blog';
-import { ProjectsComponent } from './projects/projects';
+import { TerminalComponent } from './components/terminal/terminal';
+import { ContactComponent } from './components/contact/contact';
+import { ResumeComponent } from './components/resume/resume';
+import { BlogComponent } from './components/blog/blog';
+import { ProjectsComponent } from './components/projects/projects';
 
 export const routes: Routes = [
   { path: '', component: TerminalComponent },

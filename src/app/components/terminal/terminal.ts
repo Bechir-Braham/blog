@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TerminalCommandsService } from '../services/terminal-commands';
+import { TerminalCommandsService } from '../../services/terminal-commands';
 
 interface HistoryItem {
   command: string;

@@ -1,3 +1,74 @@
 /* You can add global styles to this file, and also import other style files */
 @import './main.css';
-@import './terminal.css';
+
+/* Terminal Header Styles - Global since used in all pages */
+.terminal {
+  height: 100vh;
+  padding: var(--space-5);
+  background: linear-gradient(45deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-family-mono);
+}
+
+.terminal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-5);
+  border-bottom: var(--border-width-thick) solid var(--color-primary);
+}
+
+.terminal__header-left {
+  display: flex;
+  align-items: center;
+}
+
+.terminal__buttons {
+  display: flex;
+  gap: var(--space-2);
+  margin-right: var(--space-4);
+}
+
+.terminal__button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+}
+
+.terminal__button--red { background-color: #ff5f56; }
+.terminal__button--yellow { background-color: var(--color-accent); }
+.terminal__button--green { background-color: var(--color-success); }
+
+.terminal__title {
+  color: var(--color-primary);
+  font-size: var(--font-size-base);
+}
+
+.terminal__nav {
+  display: flex;
+  gap: var(--space-5);
+}
+
+.terminal__nav-link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  padding: var(--space-1) var(--space-2);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--border-radius-sm);
+  transition: all var(--transition-base);
+}
+
+.terminal__nav-link:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-dim);
+}
+
+.terminal__nav-link--active {
+  background-color: var(--color-primary);
+  color: var(--color-bg-primary);
+  border-color: var(--color-primary);
+}
