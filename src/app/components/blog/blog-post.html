@@ -1,0 +1,60 @@
+<div class="container py-10">
+  @if (isLoading) {
+    <div class="text-center" role="status" aria-label="Loading blog post">
+      <div class="inline-block w-8 h-8 border-2 border-info border-t-transparent rounded-full animate-spin"></div>
+      <p class="mt-2">Loading blog post...</p>
+    </div>
+  }
+
+  @if (error) {
+    <div class="alert alert--error mb-8" role="alert">
+      <h2>Error Loading Post</h2>
+      <p>{{ error }}</p>
+      <a routerLink="/blog" class="btn btn--secondary mt-4">← Back to Blog</a>
+    </div>
+  }
+
+  @if (post && content && !isLoading) {
+    <article class="max-w-4xl mx-auto">
+      <header class="mb-8">
+        <h1 class="text-4xl font-bold mb-4 text-primary">{{ post.title }}</h1>
+        
+        <div class="flex gap-4 text-sm mb-4 flex-wrap">
+          <time class="text-warning" [attr.datetime]="post.publishDate">
+            {{ formatDate(post.publishDate) }}
+          </time>
+          <span class="tag tag--secondary">{{ post.category }}</span>
+          <span class="tag tag--info">{{ getReadingTimeText(post.readTime) }}</span>
+          <span class="text-muted">by {{ post.author }}</span>
+        </div>
+
+        <div class="flex flex-wrap gap-2 mb-6" aria-label="Post tags">
+          @for (tag of post.tags; track tag) {
+            <span class="tag">{{ tag }}</span>
+          }
+        </div>
+
+        <div class="text-lg text-muted mb-8 italic">
+          {{ post.excerpt }}
+        </div>
+      </header>
+
+      <div 
+        class="prose prose-lg max-w-none blog-content"
+        [innerHTML]="content">
+      </div>
+
+      <footer class="mt-12 pt-8 border-t border-gray-700">
+        <div class="flex justify-between items-center">
+          <a routerLink="/blog" class="btn btn--secondary">
+            ← Back to Blog
+          </a>
+          
+          <div class="text-sm text-muted">
+            Published on {{ formatDate(post.publishDate) }}
+          </div>
+        </div>
+      </footer>
+    </article>
+  }
+</div>

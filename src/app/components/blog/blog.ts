@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { BlogService, BlogPost } from "../../services/blog.service";
@@ -28,7 +28,7 @@ export class BlogComponent implements OnInit {
   isLoading = true;
   error: string | null = null;
 
-  constructor(private blogService: BlogService) {}
+  constructor(private blogService: BlogService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadBlogData();
@@ -94,19 +94,7 @@ export class BlogComponent implements OnInit {
   }
 
   showPost(slug: string): void {
-    // For now, just show a notification
-    const notification = document.createElement("div");
-    notification.className = "fixed top-4 right-4 bg-info text-black p-4 rounded shadow-lg z-50";
-    notification.innerHTML = `
-      <strong>Opening Blog Post</strong><br>
-      <small>Blog post "${slug}" would open here.</small>
-    `;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-      notification.remove();
-    }, 3000);
+    this.router.navigate(['/blog', slug]);
   }
 
   formatDate(dateString: string): string {

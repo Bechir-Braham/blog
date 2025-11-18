@@ -42,7 +42,7 @@ export class BlogService {
   }
 
   getBlogPost(filename: string): Observable<string> {
-    return this.http.get(`${this.basePath}/posts/${filename}`, { 
+    return this.http.get(`${this.basePath}/${filename}`, { 
       responseType: 'text' 
     }).pipe(
       catchError(error => {

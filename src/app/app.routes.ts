@@ -3,6 +3,7 @@ import { TerminalComponent } from './components/terminal/terminal';
 import { ContactComponent } from './components/contact/contact';
 import { ResumeComponent } from './components/resume/resume';
 import { BlogComponent } from './components/blog/blog';
+import { BlogPostComponent } from './components/blog/blog-post';
 import { ProjectsComponent } from './components/projects/projects';
 
 export const routes: Routes = [
@@ -10,6 +11,7 @@ export const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'resume', component: ResumeComponent },
   { path: 'blog', component: BlogComponent },
+  { path: 'blog/:slug', component: BlogPostComponent },
   { path: 'projects', component: ProjectsComponent },
   { path: '**', redirectTo: '' }
 ];
