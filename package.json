@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "node generate-prerender-routes.js && ng build --configuration production",
     "build:prerender": "node generate-prerender-routes.js && ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",

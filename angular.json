@@ -28,7 +28,9 @@
               "src/styles.css"
             ],
             "server": "src/main.server.ts",
-            "prerender": true,
+            "prerender": {
+              "routesFile": "src/prerender-routes.txt"
+            },
             "ssr": {
               "entry": "src/server.ts"
             }

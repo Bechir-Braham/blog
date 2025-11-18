@@ -27,10 +27,9 @@ try {
 // Combine all routes
 const allRoutes = [...staticRoutes, ...blogRoutes];
 
-// Write routes to a file that Angular can use
-const routesContent = allRoutes.map(route => `'${route}'`).join(',\n  ');
-const routesFile = `export const prerenderRoutes = [\n  ${routesContent}\n];\n`;
+// Write routes in a simple format that Angular can parse
+const routesContent = allRoutes.join('\n');
 
-fs.writeFileSync(path.join(__dirname, 'src/prerender-routes.ts'), routesFile);
+fs.writeFileSync(path.join(__dirname, 'src/prerender-routes.txt'), routesContent);
 console.log(`Generated ${allRoutes.length} routes for prerendering`);
 console.log('Routes:', allRoutes);
