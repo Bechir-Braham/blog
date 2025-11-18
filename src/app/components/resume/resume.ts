@@ -80,11 +80,11 @@ export class ResumeComponent {
       company: 'Fernride - Build Automation and Tooling Team',
       period: 'November 2024 - Present',
       achievements: [
-        'Managed and maintained a Bazel-based build system for autonomous and teleoperated terminal trucks, supporting a multi-language monorepo.',
-        'Operated and contributed to CI (Continuous Integration) infrastructure across on-premises, AWS and Azure cloud environments; Utilized Terraform for infrastructure as code, integrated microservices with Kubernetes, and implemented robust monitoring, alerting, and SLOs (Service Level Objectives).',
-        'Designed and led the implementation of a static analysis gating solution to enforce safety certification requirements (TÜV), reducing static analysis violations from ~10,000 to ~200 in six months.',
-        'Designed a hibernation based solution for CI cloud machines to preserve the Bazel server cache, potentially resulting in over 90% performance improvement for cold job runs and approximately 60% reduction in compute costs.',
-        'Integrated recorded real-world vehicle-simulation tests into CI as a safety-quality gate, sped up runtime using multi-level caching (shared Lustre Filesystem + Bazel remote cache), and added the checks to PR and merge pipelines to speed impact analysis for certified releases.'
+        '• Managed and maintained a Bazel-based build system for autonomous and teleoperated terminal trucks, supporting a multi-language monorepo.',
+        '• Operated and contributed to CI (Continuous Integration) infrastructure across on-premises, AWS and Azure cloud environments; Utilized Terraform for infrastructure as code, integrated microservices with Kubernetes, and implemented robust monitoring, alerting, and SLOs (Service Level Objectives).',
+        '• Designed and led the implementation of a static analysis gating solution to enforce safety certification requirements (TÜV), reducing static analysis violations from ~10,000 to ~200 in six months.',
+        '• Designed a hibernation based solution for CI cloud machines to preserve the Bazel server cache, potentially resulting in over 90% performance improvement for cold job runs and approximately 60% reduction in compute costs.',
+        '• Integrated recorded real-world vehicle-simulation tests into CI as a safety-quality gate, sped up runtime using multi-level caching (shared Lustre Filesystem + Bazel remote cache), and added the checks to PR and merge pipelines to speed impact analysis for certified releases.'
       ]
     },
     {
@@ -93,10 +93,10 @@ export class ResumeComponent {
       company: 'Paul Scherrer Institut - Detectors Group',
       period: 'February - July 2024',
       achievements: [
-        'Architected and implemented a data analysis library for hybrid pixel X-ray detectors using C++. The library is able to read and write data from different file formats, send and receive data from multiple servers, synchronize between data-streams and analyze data using different optimized algorithms.',
-        'Developed Python bindings with pybind11 to expose C++ internals, enabling users to write readable and easy to use Python code while benefiting from C++ performance.',
-        'Provided an easy to use parallelization framework for scientists to run their algorithms. Users are able to run algorithms on: multiple threads, multiple processes and multiple distributed nodes communicating via ZeroMQ.',
-        'Improved the parallelization of Python threads (4x improvement) by releasing and acquiring the Global Interpreter Lock (GIL) carefully in the Python bindings.'
+        '• Architected and implemented a data analysis library for hybrid pixel X-ray detectors using C++. The library is able to read and write data from different file formats, send and receive data from multiple servers, synchronize between data-streams and analyze data using different optimized algorithms.',
+        '• Developed Python bindings with pybind11 to expose C++ internals, enabling users to write readable and easy to use Python code while benefiting from C++ performance.',
+        '• Provided an easy to use parallelization framework for scientists to run their algorithms. Users are able to run algorithms on: multiple threads, multiple processes and multiple distributed nodes communicating via ZeroMQ.',
+        '• Improved the parallelization of Python threads (4x improvement) by releasing and acquiring the Global Interpreter Lock (GIL) carefully in the Python bindings.'
       ]
     },
     {
@@ -105,9 +105,9 @@ export class ResumeComponent {
       company: 'Paul Scherrer Institut - Detectors Group',
       period: 'August - October 2023',
       achievements: [
-        'Contributed to the development of an open-source GUI application for testing and configuring hybrid X-ray detectors. The interface was developed using Python and PyQt and it binds to C++ code for faster backend communication with the detector server.',
-        'Implemented unit, integration, and end-to-end testing, reaching test coverage of over 80% for the GUI application.',
-        'Automated C++ code generation for the SLS detector package\'s command-line interface using Python, reducing code complexity and significantly improving maintainability and flexibility.'
+        '• Contributed to the development of an open-source GUI application for testing and configuring hybrid X-ray detectors. The interface was developed using Python and PyQt and it binds to C++ code for faster backend communication with the detector server.',
+        '• Implemented unit, integration, and end-to-end testing, reaching test coverage of over 80% for the GUI application.',
+        '• Automated C++ code generation for the SLS detector package\'s command-line interface using Python, reducing code complexity and significantly improving maintainability and flexibility.'
       ]
     },
     {
@@ -116,9 +116,9 @@ export class ResumeComponent {
       company: 'Upkurs',
       period: 'September 2022 - January 2023',
       achievements: [
-        'Established CI/CD (Continuous Integration and Deployment) pipelines for both development and production environments on Google Cloud (GCP); managed deployments for Cloud Storage, MongoDB databases, and mail services.',
-        'Implemented a NestJS service that communicates with Google Calendar API using OAuth 2.0 to generate Google Meet links and return them to clients over WebSockets.',
-        'Improved backend servers\' response times for Authentication and User services by up to 70% through asynchronous programming and algorithmic optimizations.'
+        '• Established CI/CD (Continuous Integration and Deployment) pipelines for both development and production environments on Google Cloud (GCP); managed deployments for Cloud Storage, MongoDB databases, and mail services.',
+        '• Implemented a NestJS service that communicates with Google Calendar API using OAuth 2.0 to generate Google Meet links and return them to clients over WebSockets.',
+        '• Improved backend servers\' response times for Authentication and User services by up to 70% through asynchronous programming and algorithmic optimizations.'
       ]
     },
     {
@@ -127,8 +127,8 @@ export class ResumeComponent {
       company: 'Laboratory of Images, Signals and Intelligent Systems, University Paris-Est Créteil',
       period: 'June - September 2022',
       achievements: [
-        'Performed comprehensive literature reviews and critically evaluated machine learning methodologies for PTSD recognition using EEG (electroencephalogram) data.',
-        'Co-authored review paper, contributing analytical insights and actionable recommendations for advancing EEG-based PTSD detection approaches.'
+        '• Performed comprehensive literature reviews and critically evaluated machine learning methodologies for PTSD recognition using EEG (electroencephalogram) data.',
+        '• Co-authored review paper, contributing analytical insights and actionable recommendations for advancing EEG-based PTSD detection approaches.'
       ]
     },
     {
@@ -137,8 +137,8 @@ export class ResumeComponent {
       company: 'EZZAYRA',
       period: 'April - May 2022',
       achievements: [
-        'Managed a team of 4 interns to design, test and deploy a deep learning model on an agricultural autonomous robot to locate and classify ripe and unripe strawberries.',
-        'Achieved an mAP (mean average precision) of 0.82 using a YOLO based model and deployed the model with web interface as a prototype.'
+        '• Managed a team of 4 interns to design, test and deploy a deep learning model on an agricultural autonomous robot to locate and classify ripe and unripe strawberries.',
+        '• Achieved an mAP (mean average precision) of 0.82 using a YOLO based model and deployed the model with web interface as a prototype.'
       ]
     }
   ];
