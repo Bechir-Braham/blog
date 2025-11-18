@@ -151,6 +151,12 @@
   font-size: var(--font-size-base);
 }
 
+/* Clickable terminal title - no color change on hover */
+.terminal__title--clickable {
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .terminal__nav {
   display: flex;
   gap: var(--space-5);
@@ -169,10 +175,15 @@
 .terminal__nav-link:hover {
   border-color: var(--color-primary);
   background-color: var(--color-primary-dim);
+  color: #ffffff; /* White text on hover */
 }
 
 .terminal__nav-link--active {
   background-color: var(--color-primary);
-  color: var(--color-bg-primary);
+  color: #000000; /* Black text for active state */
   border-color: var(--color-primary);
+}
+
+.terminal__nav-link--active:hover {
+  color: #ffffff; /* White text when hovering over active item */
 }
