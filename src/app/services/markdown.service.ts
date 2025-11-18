@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { marked } from 'marked';
 import hljs from 'highlight.js';
+import { isPlatformBrowser } from '@angular/common';
 import mermaid from 'mermaid';
 
 @Injectable({
@@ -8,26 +9,40 @@ import mermaid from 'mermaid';
 })
 export class MarkdownService {
   private mermaidCounter = 0;
+  private mermaidInitialized = false;
   
-  constructor() {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.configureMarked();
-    this.initializeMermaid();
+    // Only initialize Mermaid in the browser
+    if (isPlatformBrowser(this.platformId)) {
+      this.initializeMermaid();
+    }
   }
 
   private initializeMermaid(): void {
-    mermaid.initialize({
-      startOnLoad: false,
-      theme: 'dark',
-      flowchart: {
-        useMaxWidth: true,
-        htmlLabels: true
-      },
-      sequence: {
-        useMaxWidth: true
-      },
-      gitGraph: {
-        useMaxWidth: true
-      }
+    if (!isPlatformBrowser(this.platformId) || this.mermaidInitialized) {
+      return;
+    }
+
+    // Dynamic import to avoid SSR issues
+    import('mermaid').then((mermaid) => {
+      mermaid.default.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true
+        },
+        sequence: {
+          useMaxWidth: true
+        },
+        gitGraph: {
+          useMaxWidth: true
+        }
+      });
+      this.mermaidInitialized = true;
+    }).catch(error => {
+      console.error('Failed to load Mermaid:', error);
     });
   }
 
@@ -83,6 +98,26 @@ export class MarkdownService {
   }
 
   async renderMermaidDiagrams(element: HTMLElement): Promise<void> {
+    // Only render on browser
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    // Ensure Mermaid is loaded and initialized
+    if (!this.mermaidInitialized) {
+      await new Promise(resolve => {
+        const checkInitialized = () => {
+          if (this.mermaidInitialized) {
+            resolve(void 0);
+          } else {
+            setTimeout(checkInitialized, 100);
+          }
+        };
+        checkInitialized();
+      });
+    }
+
+    const mermaid = await import('mermaid');
     const mermaidElements = element.querySelectorAll('.mermaid');
     
     for (let i = 0; i < mermaidElements.length; i++) {
@@ -93,7 +128,7 @@ export class MarkdownService {
           const elementId = el.id || `mermaid-diagram-${Date.now()}-${i}`;
           
           // Render the diagram
-          const { svg } = await mermaid.render(elementId, graphDefinition);
+          const { svg } = await mermaid.default.render(elementId, graphDefinition);
           
           // Insert the SVG
           el.innerHTML = svg;

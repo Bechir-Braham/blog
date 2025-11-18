@@ -1,6 +1,6 @@
-import { Component, OnInit, AfterViewChecked, ElementRef } from "@angular/core";
+import { Component, OnInit, AfterViewChecked, ElementRef, Inject, PLATFORM_ID } from "@angular/core";
 import { ActivatedRoute, RouterLink } from "@angular/router";
-import { CommonModule } from "@angular/common";
+import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { BlogService, BlogPost } from "../../services/blog.service";
 import { MarkdownService } from "../../services/markdown.service";
 
@@ -21,7 +21,8 @@ export class BlogPostComponent implements OnInit, AfterViewChecked {
     private route: ActivatedRoute,
     private blogService: BlogService,
     private markdownService: MarkdownService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
@@ -35,13 +36,19 @@ export class BlogPostComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked(): void {
-    if (this.content && !this.isLoading && !this.contentRendered) {
+    // Only render Mermaid diagrams on the browser, not during SSR
+    if (isPlatformBrowser(this.platformId) && this.content && !this.isLoading && !this.contentRendered) {
       this.renderMermaidDiagrams();
       this.contentRendered = true;
     }
   }
 
   private async renderMermaidDiagrams(): Promise<void> {
+    // Only render on browser to avoid SSR issues
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+    
     try {
       await this.markdownService.renderMermaidDiagrams(this.elementRef.nativeElement);
     } catch (error) {

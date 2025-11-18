@@ -140,35 +140,6 @@ stateDiagram-v2
 
 Our development workflow uses GitFlow:
 
-```mermaid
-gitgraph
-    commit id: "Initial"
-    branch develop
-    checkout develop
-    commit id: "Feature A start"
-    
-    branch feature/auth
-    checkout feature/auth
-    commit id: "Add login"
-    commit id: "Add logout"
-    
-    checkout develop
-    merge feature/auth
-    commit id: "Auth integration"
-    
-    branch release/v1.0
-    checkout release/v1.0
-    commit id: "Prep v1.0"
-    commit id: "Bug fixes"
-    
-    checkout main
-    merge release/v1.0
-    commit id: "v1.0 Release"
-    
-    checkout develop
-    merge release/v1.0
-    commit id: "Back-merge fixes"
-```
 
 These diagrams help visualize complex systems and make architectural decisions more accessible to both technical and non-technical stakeholders.
 
