@@ -30,11 +30,18 @@ export interface BlogIndex {
   providedIn: 'root'
 })
 export class BlogService {
-  private readonly basePath = '/assets/blog';
+  private readonly basePath: string;
   private platformId = inject(PLATFORM_ID);
   private serverDataProvider = provideBlogData();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    // Determine base path based on deployment environment
+    const isGitHubPages = typeof window !== 'undefined' && 
+      (window.location.hostname === 'bechir-braham.github.io' || 
+       window.location.pathname.startsWith('/blog/'));
+
+    this.basePath = isGitHubPages ? '/blog/assets/blog' : '/assets/blog';
+  }
 
   getBlogIndex(): Observable<BlogIndex> {
     // Use server-side data during SSR with synchronous approach
