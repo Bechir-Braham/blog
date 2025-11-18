@@ -1,6 +1,20 @@
 {
   "posts": [
     {
+      "id": "system-architecture-diagrams",
+      "title": "Visualizing System Architecture with Mermaid Diagrams",
+      "slug": "system-architecture-diagrams",
+      "excerpt": "Learn how to create powerful system architecture diagrams using Mermaid, from microservices topologies to database relationships and CI/CD pipelines.",
+      "author": "Bechir Braham",
+      "publishDate": "2024-11-19",
+      "tags": ["Mermaid", "Architecture", "Diagrams", "Documentation", "DevOps"],
+      "category": "Software Engineering",
+      "readTime": 8,
+      "featured": true,
+      "filename": "2024-11-19-system-architecture-diagrams.md",
+      "coverImage": "assets/blog/images/2024-11-19/mermaid-diagrams.jpg"
+    },
+    {
       "id": "bazel-ci-optimization",
       "title": "Optimizing CI/CD Performance with Bazel: A Real-World Case Study",
       "slug": "bazel-ci-optimization",
@@ -30,5 +44,5 @@
     }
   ],
   "categories": ["DevOps", "Software Engineering", "Machine Learning", "Career"],
-  "tags": ["Bazel", "Python", "C++", "DevOps", "CI/CD", "Performance", "pybind11", "Scientific Computing", "Cost Optimization", "GIL"]
+  "tags": ["Bazel", "Python", "C++", "DevOps", "CI/CD", "Performance", "pybind11", "Scientific Computing", "Cost Optimization", "GIL", "Mermaid", "Architecture", "Diagrams", "Documentation"]
 }
