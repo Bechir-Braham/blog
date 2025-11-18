@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import './main.css';
 
+/* Import highlight.js theme for code syntax highlighting */
+@import 'highlight.js/styles/github-dark.css';
+
 /* Terminal Header Styles - Global since used in all pages */
 .terminal {
   height: 100vh;

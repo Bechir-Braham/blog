@@ -1,0 +1,34 @@
+{
+  "posts": [
+    {
+      "id": "bazel-ci-optimization",
+      "title": "Optimizing CI/CD Performance with Bazel: A Real-World Case Study",
+      "slug": "bazel-ci-optimization",
+      "excerpt": "How we reduced CI build times by 90% and cut compute costs by 60% using Bazel's hibernation strategy and advanced caching techniques.",
+      "author": "Bechir Braham",
+      "publishDate": "2024-11-18",
+      "tags": ["Bazel", "DevOps", "CI/CD", "Performance", "Cost Optimization"],
+      "category": "DevOps",
+      "readTime": 12,
+      "featured": true,
+      "filename": "2024-11-18-bazel-ci-optimization.md",
+      "coverImage": "assets/blog/images/2024-11-18/bazel-optimization.jpg"
+    },
+    {
+      "id": "python-cpp-bindings-performance",
+      "title": "Bridging Python and C++ for High-Performance Scientific Computing",
+      "slug": "python-cpp-bindings-performance",
+      "excerpt": "A deep dive into using pybind11 to create Python bindings for C++ libraries, achieving 4x performance improvements in scientific computing workflows.",
+      "author": "Bechir Braham",
+      "publishDate": "2024-11-15",
+      "tags": ["Python", "C++", "pybind11", "Performance", "Scientific Computing", "GIL"],
+      "category": "Software Engineering",
+      "readTime": 10,
+      "featured": true,
+      "filename": "2024-11-15-python-cpp-bindings-performance.md",
+      "coverImage": "assets/blog/images/2024-11-15/python-cpp-bridge.jpg"
+    }
+  ],
+  "categories": ["DevOps", "Software Engineering", "Machine Learning", "Career"],
+  "tags": ["Bazel", "Python", "C++", "DevOps", "CI/CD", "Performance", "pybind11", "Scientific Computing", "Cost Optimization", "GIL"]
+}

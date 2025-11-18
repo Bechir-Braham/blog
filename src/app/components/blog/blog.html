@@ -1,18 +1,3 @@
-<!-- Under Construction Overlay -->
-<div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.9); z-index: 9999; display: flex; align-items: center; justify-content: center;">
-    <div class="bg-primary-dim border-2 border-primary p-8 rounded-lg text-center max-w-md mx-4">
-        <div class="text-warning text-6xl mb-4">🚧</div>
-        <h2 class="text-2xl font-bold text-primary mb-4">Under Construction</h2>
-        <p class="text-secondary mb-6">This page is currently being developed and improved. Please check back soon!</p>
-        <button 
-            class="btn btn--secondary"
-            onclick="window.history.back()"
-            aria-label="Go back to previous page">
-            ← Go Back
-        </button>
-    </div>
-</div>
-
 <div class="container py-10">
     <header class="page-header">
         <h1 class="page-header__title">$ ls -la ~/blog/</h1>
@@ -50,19 +35,20 @@
     
     <main class="grid gap-8" id="blogGrid" role="main">
         @for (post of filteredPosts; track post.id) {
-            <article class="card animate-fade-in" [attr.data-category]="post.categories.join(' ')">
+            <article class="card animate-fade-in" [attr.data-category]="post.category">
                 <div class="card__header">
                     <div>
                         <h2 class="card__title">{{ post.title }}</h2>
                         <div class="flex gap-4 text-sm mt-2 flex-wrap">
-                            <time class="text-warning" [attr.datetime]="post.dateIso">{{ post.date }}</time>
-                            <span class="tag tag--secondary">{{ post.primaryCategory }}</span>
+                            <time class="text-warning" [attr.datetime]="post.publishDate">{{ formatDate(post.publishDate) }}</time>
+                            <span class="tag tag--secondary">{{ post.category }}</span>
+                            <span class="tag tag--info">{{ getReadingTimeText(post.readTime) }}</span>
                         </div>
                     </div>
                 </div>
                 
                 <div class="card__content">
-                    {{ post.description }}
+                    {{ post.excerpt }}
                 </div>
                 
                 <div class="flex flex-wrap gap-2 mt-4" aria-label="Post tags">
