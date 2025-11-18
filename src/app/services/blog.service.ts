@@ -2,7 +2,6 @@ import { Injectable, inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, catchError, of, switchMap } from 'rxjs';
 import { isPlatformServer } from '@angular/common';
-import { provideBlogData, getServerBlogIndexSync, getServerBlogPostSync } from '../providers/blog-data.provider';
 
 export interface BlogPost {
   id: string;
@@ -32,59 +31,53 @@ export interface BlogIndex {
 export class BlogService {
   private readonly basePath: string;
   private platformId = inject(PLATFORM_ID);
-  private serverDataProvider = provideBlogData();
 
   constructor(private http: HttpClient) {
-    // Determine base path based on deployment environment
     const isGitHubPages = typeof window !== 'undefined' && 
       (window.location.hostname === 'bechir-braham.github.io' || 
        window.location.pathname.startsWith('/blog/'));
-
     this.basePath = isGitHubPages ? '/blog/assets/blog' : '/assets/blog';
   }
 
   getBlogIndex(): Observable<BlogIndex> {
-    // Use server-side data during SSR with synchronous approach
     if (isPlatformServer(this.platformId)) {
-      try {
-        const data = getServerBlogIndexSync();
-        return of(data);
-      } catch (error) {
-        console.error('Server-side blog index failed:', error);
-        return of({ posts: [], categories: [], tags: [] });
-      }
+      return of(this.loadBlogIndexSync());
     }
-    
-    // Use HTTP requests on client-side
     return this.http.get<BlogIndex>(`${this.basePath}/blog-index.json`).pipe(
-      catchError(error => {
-        console.error('Failed to load blog index:', error);
-        return of({ posts: [], categories: [], tags: [] });
-      })
+      catchError(() => of({ posts: [], categories: [], tags: [] }))
     );
   }
 
   getBlogPost(filename: string): Observable<string> {
-    // Use server-side data during SSR with synchronous approach
     if (isPlatformServer(this.platformId)) {
-      try {
-        const content = getServerBlogPostSync(filename);
-        return of(content);
-      } catch (error) {
-        console.error('Server-side blog post failed:', error);
-        return of('# Error\n\nFailed to load blog post content.');
-      }
+      return of(this.loadBlogPostSync(filename));
     }
-    
-    // Use HTTP requests on client-side
-    return this.http.get(`${this.basePath}/${filename}`, { 
-      responseType: 'text' 
-    }).pipe(
-      catchError(error => {
-        console.error('Failed to load blog post:', error);
-        return of('# Error\n\nFailed to load blog post content.');
-      })
+    return this.http.get(`${this.basePath}/${filename}`, { responseType: 'text' }).pipe(
+      catchError(() => of('# Error\n\nFailed to load blog post.'))
     );
+  }
+
+  private loadBlogIndexSync(): BlogIndex {
+    try {
+      const fs = require('fs');
+      const path = require('path');
+      const indexPath = path.join(process.cwd(), 'public', 'assets', 'blog', 'blog-index.json');
+      const content = fs.readFileSync(indexPath, 'utf-8');
+      return JSON.parse(content);
+    } catch {
+      return { posts: [], categories: [], tags: [] };
+    }
+  }
+
+  private loadBlogPostSync(filename: string): string {
+    try {
+      const fs = require('fs');
+      const path = require('path');
+      const postPath = path.join(process.cwd(), 'public', 'assets', 'blog', filename);
+      return fs.readFileSync(postPath, 'utf-8');
+    } catch {
+      return '# Error\n\nFailed to load blog post.';
+    }
   }
 
   getPostById(id: string): Observable<BlogPost | null> {

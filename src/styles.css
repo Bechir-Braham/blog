@@ -1,119 +1,71 @@
-/* You can add global styles to this file, and also import other style files */
 @import './main.css';
-
-/* Import highlight.js theme for code syntax highlighting */
 @import 'highlight.js/styles/github-dark.css';
 
-/* Global list styling for blog content - Clean and polished */
+/* Blog content list styling */
 .blog-content ul,
 .blog-content ol {
-  margin: 0 0 1.5rem 0 !important;
-  padding: 0 !important;
-  list-style: none !important;
-  list-style-type: none !important;
-  list-style-image: none !important;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  list-style: none;
 }
 
-.blog-content ul li,
-.blog-content ol li {
-  margin: 0 0 0.75rem 0 !important;
-  padding: 0 0 0 2rem !important;
-  position: relative !important;
-  list-style: none !important;
-  list-style-type: none !important;
-  list-style-image: none !important;
-  display: block !important;
-  line-height: 1.6 !important;
-}
-
-.blog-content ul li::marker,
-.blog-content ol li::marker {
-  display: none !important;
+.blog-content li {
+  margin: 0 0 0.75rem;
+  padding: 0 0 0 2rem;
+  position: relative;
+  line-height: 1.6;
 }
 
 .blog-content ul li::before {
-  content: "▶" !important;
-  color: #fbbf24 !important; /* Yellow arrows */
-  position: absolute !important;
-  left: 0.5rem !important;
-  top: 0.1rem !important;
-  font-size: 0.9rem !important;
-  line-height: 1.4 !important;
-  width: 1rem !important;
-  height: 1rem !important;
-  display: block !important;
-  z-index: 10 !important;
-  text-align: center !important;
+  content: "▶";
+  color: var(--color-accent);
+  position: absolute;
+  left: 0.5rem;
+  top: 0.1rem;
 }
 
 .blog-content ol {
-  counter-reset: list-counter !important;
+  counter-reset: list-counter;
 }
 
 .blog-content ol li {
-  counter-increment: list-counter !important;
+  counter-increment: list-counter;
 }
 
 .blog-content ol li::before {
-  content: counter(list-counter) "." !important;
-  color: #74c0fc !important; /* Blue numbers */
-  position: absolute !important;
-  left: 0.25rem !important;
-  top: 0.1rem !important;
-  font-weight: bold !important;
-  font-size: 1rem !important;
-  line-height: 1.4 !important;
-  width: 1.5rem !important;
-  height: 1rem !important;
-  display: block !important;
-  z-index: 10 !important;
-  text-align: left !important;
+  content: counter(list-counter) ".";
+  color: var(--color-secondary);
+  position: absolute;
+  left: 0.25rem;
+  font-weight: bold;
 }
 
-/* Link styling for blog content */
 .blog-content a {
-  color: #74c0fc !important; /* Light blue for better visibility */
-  text-decoration: underline !important;
-  transition: color 0.3s ease !important;
+  color: var(--color-secondary);
+  text-decoration: underline;
+  transition: color var(--transition-base);
 }
 
 .blog-content a:hover {
-  color: #fbbf24 !important; /* Yellow on hover */
-  text-decoration: none !important;
+  color: var(--color-accent);
+  text-decoration: none;
 }
 
-.blog-content a:visited {
-  color: #a78bfa !important; /* Purple for visited links */
-}
-
-/* Terminal Header Styles - Global since used in all pages */
+/* Terminal global styles */
 .terminal {
   height: 100vh;
   padding: var(--space-5);
   background: linear-gradient(45deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
-  position: relative;
   overflow-y: auto;
   font-family: var(--font-family-mono);
   scrollbar-width: thin;
   scrollbar-color: var(--color-primary) transparent;
 }
 
-.terminal::-webkit-scrollbar {
-  width: 8px;
-}
-
-.terminal::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.terminal::-webkit-scrollbar-thumb {
-  background: var(--color-primary);
-  border-radius: var(--border-radius-sm);
-}
-
-.terminal::-webkit-scrollbar-thumb:hover {
-  background: var(--color-secondary);
-}
+.terminal::-webkit-scrollbar { width: 8px; }
+.terminal::-webkit-scrollbar-track { background: transparent; }
+.terminal::-webkit-scrollbar-thumb { background: var(--color-primary); border-radius: var(--border-radius-sm); }
+.terminal::-webkit-scrollbar-thumb:hover { background: var(--color-secondary); }
 
 .terminal__header {
   display: flex;
@@ -149,10 +101,6 @@
 .terminal__title {
   color: var(--color-primary);
   font-size: var(--font-size-base);
-}
-
-/* Clickable terminal title - no color change on hover */
-.terminal__title--clickable {
   text-decoration: none;
   cursor: pointer;
 }
@@ -175,15 +123,15 @@
 .terminal__nav-link:hover {
   border-color: var(--color-primary);
   background-color: var(--color-primary-dim);
-  color: #ffffff; /* White text on hover */
+  color: #ffffff;
 }
 
 .terminal__nav-link--active {
   background-color: var(--color-primary);
-  color: #000000; /* Black text for active state */
+  color: #000000;
   border-color: var(--color-primary);
 }
 
 .terminal__nav-link--active:hover {
-  color: #ffffff; /* White text when hovering over active item */
+  color: #ffffff;
 }

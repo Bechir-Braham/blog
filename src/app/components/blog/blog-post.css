@@ -1,5 +1,5 @@
 .blog-content {
-  color: var(--text-color);
+  color: var(--color-text-muted);
   line-height: 1.7;
 }
 
@@ -9,183 +9,43 @@
 .blog-content h4,
 .blog-content h5,
 .blog-content h6 {
-  color: var(--primary);
+  color: var(--color-primary);
   font-weight: bold;
   margin-top: 2rem;
   margin-bottom: 1rem;
 }
 
-.blog-content h1 {
-  font-size: 2rem;
-}
-
-.blog-content h2 {
-  font-size: 1.75rem;
-}
-
-.blog-content h3 {
-  font-size: 1.5rem;
-}
+.blog-content h1 { font-size: 2rem; }
+.blog-content h2 { font-size: 1.75rem; }
+.blog-content h3 { font-size: 1.5rem; }
 
 .blog-content p {
   margin-bottom: 1rem;
 }
 
-/* Blog content container - ensure proper cascade */
-.blog-content {
-  color: var(--text-color);
-  line-height: 1.7;
-}
-
-/* Use ::ng-deep to escape Angular's CSS encapsulation for markdown content */
-:host ::ng-deep .blog-content ul,
-:host ::ng-deep .blog-content ol {
-  margin: 0 0 1.5rem 0 !important;
-  padding: 0 !important;
-  list-style: none !important;
-  list-style-type: none !important;
-  list-style-image: none !important;
-}
-
-:host ::ng-deep .blog-content ul li,
-:host ::ng-deep .blog-content ol li {
-  margin: 0 0 0.75rem 0 !important;
-  padding: 0 0 0 2rem !important;
-  position: relative !important;
-  list-style: none !important;
-  list-style-type: none !important;
-  list-style-image: none !important;
-  display: block !important;
-  line-height: 1.6 !important;
-}
-
-/* Remove browser default markers */
-:host ::ng-deep .blog-content ul li::marker,
-:host ::ng-deep .blog-content ol li::marker,
-:host ::ng-deep .blog-content li::marker {
-  content: "" !important;
-  display: none !important;
-}
-
-:host ::ng-deep .blog-content ul li::-webkit-details-marker,
-:host ::ng-deep .blog-content ol li::-webkit-details-marker {
-  display: none !important;
-}
-
-/* Custom bullet points for unordered lists */
-:host ::ng-deep .blog-content ul li::before {
-  content: "▶" !important;
-  color: #fbbf24 !important; /* Yellow arrows for bullets */
-  position: absolute !important;
-  left: 0.5rem !important;
-  top: 0.1rem !important;
-  font-size: 0.9rem !important;
-  line-height: 1.4 !important;
-  width: 1rem !important;
-  height: 1rem !important;
-  display: block !important;
-  z-index: 10 !important;
-  text-align: center !important;
-}
-
-/* Custom numbering for ordered lists */
-:host ::ng-deep .blog-content ol {
-  counter-reset: list-counter !important;
-}
-
-:host ::ng-deep .blog-content ol li {
-  counter-increment: list-counter !important;
-}
-
-:host ::ng-deep .blog-content ol li::before {
-  content: counter(list-counter) "." !important;
-  color: #74c0fc !important; /* Blue color for numbers */
-  position: absolute !important;
-  left: 0.25rem !important;
-  top: 0.1rem !important;
-  font-weight: bold !important;
-  font-size: 1rem !important;
-  line-height: 1.4 !important;
-  width: 1.5rem !important;
-  height: 1rem !important;
-  display: block !important;
-  z-index: 10 !important;
-  text-align: left !important;
-}
-
-/* Nested lists */
-:host ::ng-deep .blog-content ul ul li,
-:host ::ng-deep .blog-content ol ol li,
-:host ::ng-deep .blog-content ul ol li,
-:host ::ng-deep .blog-content ol ul li {
-  margin-left: 1rem !important;
-}
-
-:host ::ng-deep .blog-content ul ul li::before {
-  content: "▷" !important;
-  color: #60a5fa !important; /* Light blue for nested bullets */
-}
-
-:host ::ng-deep .blog-content ul ul ul li::before {
-  content: "•" !important;
-  color: #d1d5db !important; /* Gray for third level */
-}
-
-/* Link styling for better visibility on dark background */
-:host ::ng-deep .blog-content a {
-  color: #74c0fc !important; /* Light blue for better visibility */
-  text-decoration: underline !important;
-  transition: color 0.3s ease !important;
-}
-
-:host ::ng-deep .blog-content a:hover {
-  color: #fbbf24 !important; /* Yellow on hover */
-  text-decoration: none !important;
-}
-
-:host ::ng-deep .blog-content a:visited {
-  color: #a78bfa !important; /* Purple for visited links */
-}
-
-/* Paragraph spacing within lists */
-.blog-content li p {
-  margin-bottom: 0.5rem !important;
-  margin-top: 0 !important;
-}
-
-.blog-content li p:last-child {
-  margin-bottom: 0 !important;
-}
-
 .blog-content blockquote {
-  border-left: 4px solid var(--warning);
+  border-left: 4px solid var(--color-warning);
   padding-left: 1rem;
   font-style: italic;
   margin: 1.5rem 0;
-  color: rgba(var(--text-color-rgb), 0.8);
+  color: var(--color-text-dim);
 }
 
 .blog-content code:not(pre code) {
-  background-color: var(--terminal-bg);
-  color: var(--warning);
+  background-color: var(--color-bg-secondary);
+  color: var(--color-warning);
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   font-size: 0.875rem;
-  font-family: 'Courier New', monospace;
 }
 
 .blog-content pre {
-  background-color: var(--terminal-bg);
-  border: 1px solid rgba(var(--text-color-rgb), 0.2);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid rgba(0, 255, 0, 0.2);
   border-radius: 8px;
   padding: 1rem;
   overflow-x: auto;
   margin: 1.5rem 0;
-}
-
-.blog-content pre code {
-  font-size: 0.875rem;
-  font-family: 'Courier New', monospace;
 }
 
 .blog-content img {
@@ -197,99 +57,18 @@
   display: block;
 }
 
-.blog-content a {
-  color: var(--info);
-  text-decoration: underline;
-}
-
-.blog-content a:hover {
-  color: var(--info-hover);
-}
-
-.blog-content table {
-  width: 100%;
-  margin: 1.5rem 0;
-  border-collapse: collapse;
-}
-
-.blog-content th,
-.blog-content td {
-  border: 1px solid rgba(var(--text-color-rgb), 0.2);
-  padding: 0.75rem 1rem;
-  text-align: left;
-}
-
-.blog-content th {
-  background-color: var(--terminal-bg);
-  font-weight: bold;
-  color: var(--primary);
-}
-
-.blog-content tbody tr:nth-child(even) {
-  background-color: rgba(var(--text-color-rgb), 0.05);
-}
-
-.blog-content hr {
-  border: none;
-  border-top: 1px solid rgba(var(--text-color-rgb), 0.2);
-  margin: 2rem 0;
-}
-
-.blog-content strong {
-  font-weight: bold;
-  color: #ffffff;
-}
-
-.blog-content em {
-  font-style: italic;
-}
-
-/* Syntax highlighting styles */
-.blog-content .hljs {
-  background-color: var(--terminal-bg);
-}
-
-.blog-content .hljs-keyword,
-.blog-content .hljs-selector-tag,
-.blog-content .hljs-type {
-  color: #a78bfa;
-}
-
-.blog-content .hljs-string,
-.blog-content .hljs-attr {
-  color: #86efac;
-}
-
-.blog-content .hljs-number,
-.blog-content .hljs-literal {
-  color: #60a5fa;
-}
-
-.blog-content .hljs-comment {
-  color: #6b7280;
-  font-style: italic;
-}
-
-.blog-content .hljs-function,
-.blog-content .hljs-title {
-  color: #fbbf24;
-}
-
-.blog-content .hljs-variable,
-.blog-content .hljs-name {
-  color: #fb7185;
-}
-
-/* Mermaid diagram container - minimal styling */
-:host ::ng-deep .mermaid-container {
+/* Mermaid diagram container */
+.mermaid-container {
   margin: 2rem 0;
   padding: 1rem;
+  background-color: var(--color-bg-secondary);
   border-radius: 8px;
-  text-align: center;
   overflow-x: auto;
 }
 
-:host ::ng-deep .mermaid svg {
-  max-width: 100%;
-  height: auto;
+.mermaid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
 }

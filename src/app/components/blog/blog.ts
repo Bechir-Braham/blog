@@ -4,11 +4,6 @@ import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { BlogService, BlogPost } from "../../services/blog.service";
 
-interface Category {
-  id: string;
-  name: string;
-}
-
 @Component({
   selector: "app-blog",
   imports: [RouterLink, CommonModule, FormsModule],
@@ -18,57 +13,51 @@ interface Category {
 export class BlogComponent implements OnInit {
   searchQuery = "";
   selectedCategory = "all";
-  
   allPosts: BlogPost[] = [];
   filteredPosts: BlogPost[] = [];
-  categories: Category[] = [
-    { id: "all", name: "All Posts" }
-  ];
-  
+  categories: { id: string; name: string }[] = [{ id: "all", name: "All Posts" }];
   isLoading = true;
   error: string | null = null;
 
   constructor(private blogService: BlogService, private router: Router) {}
 
-  ngOnInit(): void {
-    this.loadBlogData();
+  async ngOnInit() {
+    await this.loadBlogData();
   }
 
-  private loadBlogData(): void {
+  private async loadBlogData() {
     this.isLoading = true;
     this.error = null;
     
-    this.blogService.getBlogIndex().subscribe({
-      next: (index) => {
-        this.allPosts = index.posts;
-        this.filteredPosts = [...this.allPosts];
-        
-        const uniqueCategories = [...new Set(index.categories)];
-        this.categories = [
-          { id: "all", name: "All Posts" },
-          ...uniqueCategories.map((cat: string) => ({ id: cat, name: cat }))
-        ];
-        
-        this.isLoading = false;
-      },
-      error: (error) => {
-        console.error("Failed to load blog data:", error);
-        this.error = "Failed to load blog posts. Please try again later.";
-        this.isLoading = false;
-      }
-    });
+    try {
+      const index = await this.blogService.getBlogIndex().toPromise();
+      this.allPosts = index?.posts || [];
+      this.filteredPosts = [...this.allPosts];
+      
+      const uniqueCategories = [...new Set(index?.categories || [])];
+      this.categories = [
+        { id: "all", name: "All Posts" },
+        ...uniqueCategories.map(cat => ({ id: cat, name: cat }))
+      ];
+      
+      this.isLoading = false;
+    } catch (error) {
+      console.error("Failed to load blog data:", error);
+      this.error = "Failed to load blog posts. Please try again later.";
+      this.isLoading = false;
+    }
   }
 
-  filterByCategory(categoryId: string): void {
+  filterByCategory(categoryId: string) {
     this.selectedCategory = categoryId;
     this.applyFilters();
   }
 
-  filterPosts(): void {
+  filterPosts() {
     this.applyFilters();
   }
 
-  private applyFilters(): void {
+  private applyFilters() {
     let posts = [...this.allPosts];
     
     if (this.selectedCategory !== "all") {
@@ -87,20 +76,19 @@ export class BlogComponent implements OnInit {
     this.filteredPosts = posts;
   }
 
-  clearFilters(): void {
+  clearFilters() {
     this.searchQuery = "";
     this.selectedCategory = "all";
     this.filteredPosts = [...this.allPosts];
   }
 
-  showPost(slug: string): void {
+  showPost(slug: string) {
     this.router.navigate(['/blog', slug]);
   }
 
   formatDate(dateString: string): string {
     try {
-      const date = new Date(dateString);
-      return date.toLocaleDateString("en-US", { 
+      return new Date(dateString).toLocaleDateString("en-US", { 
         year: "numeric", 
         month: "long", 
         day: "numeric" 

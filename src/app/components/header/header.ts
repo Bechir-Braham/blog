@@ -4,9 +4,6 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 @Component({
   selector: 'app-header',
   imports: [RouterLink, RouterLinkActive],
-  templateUrl: './header.html',
-  styleUrl: './header.css',
+  templateUrl: './header.html'
 })
-export class HeaderComponent {
-
-}
+export class HeaderComponent {}
