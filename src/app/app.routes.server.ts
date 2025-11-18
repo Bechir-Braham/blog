@@ -1,10 +1,7 @@
 import { RenderMode, ServerRoute } from '@angular/ssr';
-import * as fs from 'fs';
-import * as path from 'path';
-import { fileURLToPath } from 'url';
 
 export const serverRoutes: ServerRoute[] = [
-  // Prerender static routes for GitHub Pages deployment
+  // Prerender basic static routes for GitHub Pages deployment
   {
     path: '',
     renderMode: RenderMode.Prerender
@@ -23,11 +20,11 @@ export const serverRoutes: ServerRoute[] = [
   },
   {
     path: 'blog',
-    renderMode: RenderMode.Client  // Use CSR for blog to avoid asset loading issues during prerender
+    renderMode: RenderMode.Prerender
   },
   {
     path: 'blog/:slug',
-    renderMode: RenderMode.Client  // Use CSR for blog posts to avoid asset loading issues during prerender
+    renderMode: RenderMode.Client  // Use client-side rendering for blog posts - simple and reliable
   },
   {
     path: '**',
