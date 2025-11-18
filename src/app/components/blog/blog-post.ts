@@ -1,8 +1,9 @@
-import { Component, OnInit, AfterViewChecked, ElementRef, Inject, PLATFORM_ID } from "@angular/core";
+import { Component, OnInit, AfterViewChecked, ElementRef, Inject, PLATFORM_ID, OnDestroy } from "@angular/core";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { BlogService, BlogPost } from "../../services/blog.service";
 import { MarkdownService } from "../../services/markdown.service";
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: "app-blog-post",
@@ -10,12 +11,13 @@ import { MarkdownService } from "../../services/markdown.service";
   templateUrl: "./blog-post.html",
   styleUrl: "./blog-post.css",
 })
-export class BlogPostComponent implements OnInit, AfterViewChecked {
+export class BlogPostComponent implements OnInit, AfterViewChecked, OnDestroy {
   post: BlogPost | null = null;
   content: string = "";
   isLoading = true;
   error: string | null = null;
   private contentRendered = false;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private route: ActivatedRoute,
@@ -33,6 +35,11 @@ export class BlogPostComponent implements OnInit, AfterViewChecked {
       this.error = "Blog post not found";
       this.isLoading = false;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   ngAfterViewChecked(): void {
@@ -60,44 +67,48 @@ export class BlogPostComponent implements OnInit, AfterViewChecked {
     this.isLoading = true;
     this.error = null;
 
-    this.blogService.getBlogIndex().subscribe({
-      next: (index) => {
-        const post = index.posts.find(p => p.slug === slug);
-        if (post) {
-          this.post = post;
-          this.loadPostContent(post.filename);
-        } else {
-          this.error = "Blog post not found";
+    this.blogService.getBlogIndex()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (index) => {
+          const post = index.posts.find((p: BlogPost) => p.slug === slug);
+          if (post) {
+            this.post = post;
+            this.loadPostContent(post.filename);
+          } else {
+            this.error = "Blog post not found";
+            this.isLoading = false;
+          }
+        },
+        error: (error) => {
+          console.error("Failed to load blog post:", error);
+          this.error = "Failed to load blog post. Please try again later.";
           this.isLoading = false;
         }
-      },
-      error: (error) => {
-        console.error("Failed to load blog post:", error);
-        this.error = "Failed to load blog post. Please try again later.";
-        this.isLoading = false;
-      }
-    });
+      });
   }
 
-  private async loadPostContent(filename: string): Promise<void> {
-    this.blogService.getBlogPost(filename).subscribe({
-      next: async (markdown) => {
-        try {
-          this.content = await this.markdownService.renderMarkdown(markdown);
-          this.isLoading = false;
-          this.contentRendered = false; // Reset flag to trigger Mermaid rendering
-        } catch (error) {
-          console.error("Failed to render markdown:", error);
-          this.error = "Failed to render post content. Please try again later.";
+  private loadPostContent(filename: string): void {
+    this.blogService.getBlogPost(filename)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: async (markdown) => {
+          try {
+            this.content = await this.markdownService.renderMarkdown(markdown);
+            this.isLoading = false;
+            this.contentRendered = false; // Reset flag to trigger Mermaid rendering
+          } catch (error) {
+            console.error("Failed to render markdown:", error);
+            this.error = "Failed to render post content. Please try again later.";
+            this.isLoading = false;
+          }
+        },
+        error: (error) => {
+          console.error("Failed to load post content:", error);
+          this.error = "Failed to load post content. Please try again later.";
           this.isLoading = false;
         }
-      },
-      error: (error) => {
-        console.error("Failed to load post content:", error);
-        this.error = "Failed to load post content. Please try again later.";
-        this.isLoading = false;
-      }
-    });
+      });
   }
 
   formatDate(dateString: string): string {

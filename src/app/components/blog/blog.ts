@@ -46,7 +46,7 @@ export class BlogComponent implements OnInit {
         const uniqueCategories = [...new Set(index.categories)];
         this.categories = [
           { id: "all", name: "All Posts" },
-          ...uniqueCategories.map(cat => ({ id: cat, name: cat }))
+          ...uniqueCategories.map((cat: string) => ({ id: cat, name: cat }))
         ];
         
         this.isLoading = false;

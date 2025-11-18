@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, catchError, of, switchMap } from 'rxjs';
+import { isPlatformServer } from '@angular/common';
+import { provideBlogData, getServerBlogIndexSync, getServerBlogPostSync } from '../providers/blog-data.provider';
 
 export interface BlogPost {
   id: string;
@@ -29,10 +31,24 @@ export interface BlogIndex {
 })
 export class BlogService {
   private readonly basePath = '/assets/blog';
+  private platformId = inject(PLATFORM_ID);
+  private serverDataProvider = provideBlogData();
 
   constructor(private http: HttpClient) {}
 
   getBlogIndex(): Observable<BlogIndex> {
+    // Use server-side data during SSR with synchronous approach
+    if (isPlatformServer(this.platformId)) {
+      try {
+        const data = getServerBlogIndexSync();
+        return of(data);
+      } catch (error) {
+        console.error('Server-side blog index failed:', error);
+        return of({ posts: [], categories: [], tags: [] });
+      }
+    }
+    
+    // Use HTTP requests on client-side
     return this.http.get<BlogIndex>(`${this.basePath}/blog-index.json`).pipe(
       catchError(error => {
         console.error('Failed to load blog index:', error);
@@ -42,6 +58,18 @@ export class BlogService {
   }
 
   getBlogPost(filename: string): Observable<string> {
+    // Use server-side data during SSR with synchronous approach
+    if (isPlatformServer(this.platformId)) {
+      try {
+        const content = getServerBlogPostSync(filename);
+        return of(content);
+      } catch (error) {
+        console.error('Server-side blog post failed:', error);
+        return of('# Error\n\nFailed to load blog post content.');
+      }
+    }
+    
+    // Use HTTP requests on client-side
     return this.http.get(`${this.basePath}/${filename}`, { 
       responseType: 'text' 
     }).pipe(
