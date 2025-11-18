@@ -1,0 +1,17 @@
+<header class="terminal__header">
+    <div class="terminal__header-left">
+        <div class="terminal__buttons" aria-hidden="true">
+            <div class="terminal__button terminal__button--red"></div>
+            <div class="terminal__button terminal__button--yellow"></div>
+            <div class="terminal__button terminal__button--green"></div>
+        </div>
+        <div class="terminal__title">bechir@terminal:~</div>
+    </div>
+    <nav class="terminal__nav" role="navigation" aria-label="Main navigation">
+        <a routerLink="/" routerLinkActive="terminal__nav-link--active" [routerLinkActiveOptions]="{exact: true}" class="terminal__nav-link">home</a>
+        <a routerLink="/contact" routerLinkActive="terminal__nav-link--active" class="terminal__nav-link">contact</a>
+        <a routerLink="/resume" routerLinkActive="terminal__nav-link--active" class="terminal__nav-link">resume</a>
+        <a routerLink="/blog" routerLinkActive="terminal__nav-link--active" class="terminal__nav-link">blog</a>
+        <a routerLink="/projects" routerLinkActive="terminal__nav-link--active" class="terminal__nav-link">projects</a>
+    </nav>
+</header>

@@ -1,0 +1,33 @@
+<section class="terminal__content">
+    <div class="terminal__history" #terminalHistory role="log" aria-live="polite" aria-label="Terminal output">
+        <!-- Terminal history output -->
+        @for (item of terminalOutput; track item.timestamp) {
+        <div class="mb-4">
+            <div class="flex items-center mb-2">
+                <span class="text-primary mr-2">bechir@terminal:~$</span>
+                <span class="text-secondary">{{ item.command }}</span>
+            </div>
+            <div class="text-muted ml-5" [innerHTML]="item.output"></div>
+        </div>
+        }
+    </div>
+    
+    <div class="flex items-center mt-6" role="group" aria-label="Command input">
+        <label for="userInput" class="sr-only">Enter terminal command</label>
+        <span class="text-primary mr-2 flex-shrink-0">bechir@terminal:~$</span>
+        <input 
+            #terminalInput
+            type="text" 
+            class="terminal__input flex-1" 
+            id="userInput" 
+            placeholder="Type 'help' for available commands..." 
+            autocomplete="off"
+            (keydown)="onKeyDown($event)"
+            aria-describedby="terminal-help"
+        >
+        <span class="text-primary animate-blink ml-1" aria-hidden="true">_</span>
+    </div>
+    <div id="terminal-help" class="sr-only">
+        Use arrow keys to navigate command history, Tab for auto-completion
+    </div>
+</section>
