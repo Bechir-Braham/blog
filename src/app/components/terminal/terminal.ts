@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TerminalCommandsService } from '../../services/terminal-commands';
 
@@ -14,13 +14,14 @@ interface HistoryItem {
   templateUrl: './terminal.html',
   styleUrl: './terminal.css',
 })
-export class TerminalComponent implements OnInit, AfterViewInit {
+export class TerminalComponent implements OnInit, AfterViewInit, AfterViewChecked {
   @ViewChild('terminalInput') terminalInput!: ElementRef<HTMLInputElement>;
-  @ViewChild('terminalHistory') terminalHistory!: ElementRef<HTMLDivElement>;
+  @ViewChild('terminalContent') terminalContent!: ElementRef<HTMLDivElement>;
 
   history: string[] = [];
   historyIndex = -1;
   terminalOutput: HistoryItem[] = [];
+  private shouldAutoScroll = true;
 
   constructor(private commandService: TerminalCommandsService) {}
 
@@ -31,6 +32,22 @@ export class TerminalComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     // Focus the input field
     this.terminalInput.nativeElement.focus();
+    
+    // Add scroll event listener to detect manual scrolling
+    this.terminalContent.nativeElement.addEventListener('scroll', () => {
+      // If user scrolls up manually, disable auto-scroll temporarily
+      if (!this.isScrolledNearBottom()) {
+        this.shouldAutoScroll = false;
+      }
+    });
+  }
+
+  ngAfterViewChecked() {
+    // Auto-scroll to bottom when new content is added
+    if (this.shouldAutoScroll) {
+      this.scrollToBottom();
+      this.shouldAutoScroll = false; // Reset flag after scrolling
+    }
   }
 
   onKeyDown(event: KeyboardEvent) {
@@ -93,8 +110,11 @@ export class TerminalComponent implements OnInit, AfterViewInit {
     // Clear input
     this.terminalInput.nativeElement.value = '';
     
-    // Scroll to bottom
-    setTimeout(() => this.scrollToBottom(), 0);
+    // Ensure auto-scroll happens after new output
+    this.shouldAutoScroll = true;
+    
+    // Force immediate scroll as backup
+    setTimeout(() => this.scrollToBottom(), 10);
   }
 
   navigateHistory(direction: 'up' | 'down') {
@@ -131,12 +151,20 @@ export class TerminalComponent implements OnInit, AfterViewInit {
         output: `<div class="text-muted">Available: ${matches.join(', ')}</div>`,
         timestamp: new Date()
       });
-      setTimeout(() => this.scrollToBottom(), 0);
+      this.shouldAutoScroll = true;
     }
   }
 
   scrollToBottom() {
-    const historyElement = this.terminalHistory.nativeElement;
-    historyElement.scrollTop = historyElement.scrollHeight;
+    const contentElement = this.terminalContent.nativeElement;
+    contentElement.scrollTop = contentElement.scrollHeight;
+  }
+
+  private isScrolledNearBottom(): boolean {
+    if (!this.terminalContent?.nativeElement) return true;
+    
+    const element = this.terminalContent.nativeElement;
+    const threshold = 50; // pixels from bottom
+    return (element.scrollTop + element.clientHeight >= element.scrollHeight - threshold);
   }
 }

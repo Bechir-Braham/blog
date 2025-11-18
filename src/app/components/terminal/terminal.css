@@ -1,13 +1,14 @@
 .terminal__content {
-  background: black;
-  color: var(--primary-green);
-  font-family: 'Courier New', monospace;
+  background: var(--color-bg-primary);
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-base);
   height: calc(100vh - 100px);
   overflow-y: auto;
-  padding: 20px;
+  padding: var(--space-5);
   position: relative;
   scrollbar-width: thin;
-  scrollbar-color: var(--primary-green) transparent;
+  scrollbar-color: var(--color-primary) transparent;
 }
 
 .terminal__content::-webkit-scrollbar {
@@ -19,16 +20,16 @@
 }
 
 .terminal__content::-webkit-scrollbar-thumb {
-  background: var(--primary-green);
-  border-radius: 4px;
+  background: var(--color-primary);
+  border-radius: var(--border-radius-sm);
 }
 
 .terminal__content::-webkit-scrollbar-thumb:hover {
-  background: var(--secondary-green);
+  background: var(--color-secondary);
 }
 
 .terminal__output {
-  margin-bottom: 10px;
+  margin-bottom: var(--space-3);
 }
 
 .terminal__line {
@@ -39,26 +40,26 @@
 .terminal__input-line {
   display: flex;
   align-items: center;
-  margin-top: 10px;
+  margin-top: var(--space-3);
 }
 
 .terminal__prompt {
-  color: var(--primary-green);
-  margin-right: 5px;
+  color: var(--color-primary);
+  margin-right: var(--space-2);
 }
 
 .terminal__input {
   background: transparent;
   border: none;
-  color: var(--primary-green);
-  font-family: 'Courier New', monospace;
-  font-size: inherit;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-base);
   flex: 1;
   outline: none;
 }
 
 .terminal__cursor {
-  background: var(--primary-green);
+  background: var(--color-primary);
   animation: blink 1s infinite;
   width: 8px;
   height: 1.2em;
@@ -75,62 +76,62 @@
 }
 
 .terminal__ascii-art {
-  color: var(--primary-green);
+  color: var(--color-primary);
   text-align: center;
-  margin: 20px 0;
+  margin: var(--space-5) 0;
   white-space: pre;
-  font-family: 'Courier New', monospace;
+  font-family: var(--font-family-mono);
   line-height: 1;
 }
 
 .terminal__welcome {
-  margin: 20px 0;
+  margin: var(--space-5) 0;
   text-align: center;
 }
 
 .terminal__help {
-  margin: 20px 0;
+  margin: var(--space-5) 0;
 }
 
 .terminal__help h3 {
-  color: var(--primary-green);
-  margin: 10px 0 5px 0;
+  color: var(--color-primary);
+  margin: var(--space-3) 0 var(--space-2) 0;
 }
 
 .terminal__help ul {
   list-style: none;
   padding: 0;
-  margin: 0 0 15px 20px;
+  margin: 0 0 var(--space-4) var(--space-5);
 }
 
 .terminal__help li {
-  margin: 5px 0;
-  color: var(--text-color);
+  margin: var(--space-2) 0;
+  color: var(--color-text-secondary);
 }
 
 .terminal__help .command {
-  color: var(--primary-green);
+  color: var(--color-primary);
   font-weight: bold;
 }
 
 .terminal__help .description {
-  color: var(--text-secondary);
-  margin-left: 10px;
+  color: var(--color-text-secondary);
+  margin-left: var(--space-3);
 }
 
 /* Responsive design for terminal */
 @media (max-width: 768px) {
   .terminal__content {
     height: calc(100vh - 80px);
-    padding: 15px;
+    padding: var(--space-4);
   }
 
   .terminal__input {
-    font-size: 14px;
+    font-size: var(--font-size-sm);
   }
 
   .terminal__ascii-art {
     font-size: 0.7em;
-    margin: 10px 0;
+    margin: var(--space-3) 0;
   }
 }

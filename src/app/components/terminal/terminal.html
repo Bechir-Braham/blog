@@ -1,5 +1,5 @@
-<section class="terminal__content">
-    <div class="terminal__history" #terminalHistory role="log" aria-live="polite" aria-label="Terminal output">
+<section class="terminal__content" #terminalContent>
+    <div class="terminal__history" role="log" aria-live="polite" aria-label="Terminal output">
         <!-- Terminal history output -->
         @for (item of terminalOutput; track item.timestamp) {
         <div class="mb-4">
