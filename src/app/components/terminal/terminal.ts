@@ -185,8 +185,11 @@ export class TerminalComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private scrollToBottom(): void {
-    const element = this.terminalContent.nativeElement;
-    element.scrollTop = element.scrollHeight;
+    // Find the parent terminal container and scroll it
+    const terminalContainer = document.querySelector('.terminal');
+    if (terminalContainer) {
+      terminalContainer.scrollTop = terminalContainer.scrollHeight;
+    }
   }
 
   // History navigation

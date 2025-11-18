@@ -4,14 +4,79 @@
         <p class="page-header__subtitle">Thoughts, tutorials, and insights from Bechir Braham</p>
     </header>
     
-    <main class="grid gap-8">
-        <section class="card">
-            <h2 class="card__title mb-5">Latest Posts</h2>
-            <p class="text-muted">Coming soon... Blog posts are being migrated to Angular.</p>
-        </section>
+    <div class="mb-8">
+        <label for="searchBox" class="sr-only">Search blog posts</label>
+        <input 
+            type="text" 
+            class="form__input w-full max-w-md mx-auto block" 
+            id="searchBox" 
+            placeholder="Search posts..." 
+            aria-describedby="search-help"
+            [(ngModel)]="searchQuery"
+            (input)="filterPosts()">
+        <div id="search-help" class="sr-only">
+            Search through blog posts by title, content, or tags
+        </div>
+    </div>
+    
+    <nav class="mb-8" aria-label="Blog post filters">
+        <div class="flex gap-4 justify-center flex-wrap">
+            @for (category of categories; track category.id) {
+                <button 
+                    class="btn btn--primary btn--small"
+                    [class.active]="selectedCategory === category.id"
+                    [attr.aria-pressed]="selectedCategory === category.id"
+                    (click)="filterByCategory(category.id)">
+                    {{ category.name }}
+                </button>
+            }
+        </div>
+    </nav>
+    
+    <main class="grid gap-8" id="blogGrid" role="main">
+        @for (post of filteredPosts; track post.id) {
+            <article class="card animate-fade-in" [attr.data-category]="post.categories.join(' ')">
+                <div class="card__header">
+                    <div>
+                        <h2 class="card__title">{{ post.title }}</h2>
+                        <div class="flex gap-4 text-sm mt-2 flex-wrap">
+                            <time class="text-warning" [attr.datetime]="post.dateIso">{{ post.date }}</time>
+                            <span class="tag tag--secondary">{{ post.primaryCategory }}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card__content">
+                    {{ post.description }}
+                </div>
+                
+                <div class="flex flex-wrap gap-2 mt-4" aria-label="Post tags">
+                    @for (tag of post.tags; track tag) {
+                        <span class="tag">{{ tag }}</span>
+                    }
+                </div>
+                
+                <footer class="mt-4">
+                    <button 
+                        class="btn btn--secondary btn--small" 
+                        (click)="showPost(post.slug)">
+                        Read more →
+                    </button>
+                </footer>
+            </article>
+        }
         
-        <nav class="mt-8">
-            <a routerLink="/" class="nav-back">← Back to Terminal</a>
-        </nav>
+        @if (filteredPosts.length === 0) {
+            <div class="text-center text-muted mt-12" role="status">
+                <p>No posts found matching your criteria.</p>
+                <button class="btn btn--secondary btn--small mt-4" (click)="clearFilters()">
+                    Clear filters
+                </button>
+            </div>
+        }
     </main>
+    
+    <nav class="mt-8">
+        <a routerLink="/" class="nav-back">← Back to Terminal</a>
+    </nav>
 </div>

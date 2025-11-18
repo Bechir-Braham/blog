@@ -4,14 +4,82 @@
         <p class="page-header__subtitle">A showcase of Bechir Braham's development projects</p>
     </header>
     
-    <main class="grid gap-8">
-        <section class="card">
-            <h2 class="card__title mb-5">Featured Projects</h2>
-            <p class="text-muted">Coming soon... Project showcase is being migrated to Angular.</p>
-        </section>
+    <nav class="mb-8" aria-label="Project filters">
+        <div class="flex gap-4 justify-center flex-wrap">
+            @for (category of categories; track category.id) {
+                <button 
+                    class="btn btn--primary btn--small"
+                    [class.active]="selectedCategory === category.id"
+                    [attr.aria-pressed]="selectedCategory === category.id"
+                    (click)="filterByCategory(category.id)">
+                    {{ category.name }}
+                </button>
+            }
+        </div>
+    </nav>
+    
+    <main class="grid grid-cols-1 lg:grid-cols-2 gap-8" id="projectsGrid" role="main">
+        @for (project of filteredProjects; track project.id) {
+            <article class="card relative animate-fade-in" [attr.data-category]="project.categories.join(' ')">
+                @if (project.featured) {
+                    <div class="badge">Featured</div>
+                }
+                
+                <div class="card__header">
+                    <div>
+                        <h2 class="card__title">{{ project.name }}</h2>
+                        <div [class]="'status status--' + project.status">{{ project.statusText }}</div>
+                    </div>
+                </div>
+                
+                <div class="card__content">
+                    {{ project.description }}
+                </div>
+                
+                <div class="p-4 bg-primary-dim rounded mt-4">
+                    <div class="grid grid-cols-3 gap-4 text-sm">
+                        @for (stat of project.stats; track stat.label) {
+                            <div>
+                                <span class="text-primary font-semibold block">{{ stat.label }}:</span>
+                                <span class="text-muted">{{ stat.value }}</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <span class="text-primary font-semibold block mb-2">Technologies:</span>
+                    <div class="flex flex-wrap gap-2">
+                        @for (tech of project.technologies; track tech) {
+                            <span class="tag">{{ tech }}</span>
+                        }
+                    </div>
+                </div>
+                
+                <footer class="flex gap-4 mt-6 flex-wrap">
+                    @for (link of project.links; track link.label) {
+                        <button 
+                            class="btn"
+                            [class]="link.primary ? 'btn--primary btn--small' : 'btn--secondary btn--small'"
+                            (click)="openProjectLink(link.url, link.label)">
+                            {{ link.icon }} {{ link.label }}
+                        </button>
+                    }
+                </footer>
+            </article>
+        }
         
-        <nav class="mt-8">
-            <a routerLink="/" class="nav-back">← Back to Terminal</a>
-        </nav>
+        @if (filteredProjects.length === 0) {
+            <div class="text-center text-muted mt-12 col-span-full" role="status">
+                <p>No projects found in this category.</p>
+                <button class="btn btn--secondary btn--small mt-4" (click)="clearFilters()">
+                    Show all projects
+                </button>
+            </div>
+        }
     </main>
+    
+    <nav class="mt-8">
+        <a routerLink="/" class="nav-back">← Back to Terminal</a>
+    </nav>
 </div>

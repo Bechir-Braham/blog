@@ -2,16 +2,184 @@
     <header class="page-header">
         <h1 class="page-header__title">$ cat resume.txt</h1>
         <p class="page-header__subtitle">Bechir Braham - Software Developer</p>
+        <div class="flex gap-4 justify-center mt-4 flex-wrap">
+            <button class="btn btn--secondary btn--small" (click)="downloadResume()" aria-label="Download resume as PDF">
+                📄 Download PDF
+            </button>
+            <a href="mailto:bechir.braham@example.com" class="btn btn--secondary btn--small">
+                📧 Email Me
+            </a>
+        </div>
     </header>
     
     <main class="grid gap-8">
-        <section class="card">
-            <h2 class="card__title mb-5">Professional Experience</h2>
-            <p class="text-muted">Coming soon... This page is under construction.</p>
+        <!-- Personal Information -->
+        <section class="card" aria-labelledby="personal-info">
+            <h2 id="personal-info" class="card__title mb-5">Personal Information</h2>
+            <div class="grid grid-cols-2 gap-6">
+                <div class="space-y-3">
+                    <div class="flex">
+                        <span class="text-primary font-semibold w-20 flex-shrink-0">Name:</span>
+                        <span class="text-secondary">{{ personalInfo.name }}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="text-primary font-semibold w-20 flex-shrink-0">Email:</span>
+                        <a [href]="'mailto:' + personalInfo.email" class="text-secondary hover:text-info transition-colors">
+                            {{ personalInfo.email }}
+                        </a>
+                    </div>
+                    <div class="flex">
+                        <span class="text-primary font-semibold w-20 flex-shrink-0">Phone:</span>
+                        <span class="text-secondary">{{ personalInfo.phone }}</span>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex">
+                        <span class="text-primary font-semibold w-20 flex-shrink-0">Location:</span>
+                        <span class="text-secondary">{{ personalInfo.location }}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="text-primary font-semibold w-20 flex-shrink-0">LinkedIn:</span>
+                        <a [href]="personalInfo.linkedinUrl" 
+                           class="text-secondary hover:text-info transition-colors"
+                           target="_blank" 
+                           rel="noopener noreferrer">
+                           {{ personalInfo.linkedin }}
+                        </a>
+                    </div>
+                    <div class="flex">
+                        <span class="text-primary font-semibold w-20 flex-shrink-0">GitHub:</span>
+                        <a [href]="personalInfo.githubUrl" 
+                           class="text-secondary hover:text-info transition-colors"
+                           target="_blank" 
+                           rel="noopener noreferrer">
+                           {{ personalInfo.github }}
+                        </a>
+                    </div>
+                </div>
+            </div>
         </section>
         
-        <nav class="mt-8">
-            <a routerLink="/" class="nav-back">← Back to Terminal</a>
-        </nav>
+        <!-- Professional Summary -->
+        <section class="card" aria-labelledby="summary">
+            <h2 id="summary" class="card__title mb-5">Professional Summary</h2>
+            <p class="card__content leading-relaxed">
+                {{ professionalSummary }}
+            </p>
+        </section>
+        
+        <!-- Work Experience -->
+        <section class="card" aria-labelledby="experience">
+            <h2 id="experience" class="card__title mb-6">Work Experience</h2>
+            
+            @for (job of workExperience; track job.id) {
+                <article class="mb-8 p-4 bg-primary-dim rounded border-l-4 border-primary">
+                    <header class="mb-3">
+                        <h3 class="text-primary text-xl font-semibold">{{ job.title }}</h3>
+                        <div class="text-info text-lg mt-1">{{ job.company }}</div>
+                        <time class="text-warning italic text-sm">{{ job.period }}</time>
+                    </header>
+                    <div class="card__content">
+                        <ul class="list space-y-2">
+                            @for (achievement of job.achievements; track achievement) {
+                                <li>{{ achievement }}</li>
+                            }
+                        </ul>
+                    </div>
+                </article>
+            }
+        </section>
+        
+        <!-- Technical Skills -->
+        <section class="card" aria-labelledby="skills">
+            <h2 id="skills" class="card__title mb-6">Technical Skills</h2>
+            <div class="grid grid-cols-2 gap-6">
+                <div class="space-y-4">
+                    @for (skillCategory of leftSkillCategories; track skillCategory.name) {
+                        <div class="p-4 bg-primary-dim rounded">
+                            <h3 class="text-primary font-semibold mb-3">{{ skillCategory.name }}</h3>
+                            <div class="flex flex-wrap gap-2">
+                                @for (skill of skillCategory.skills; track skill) {
+                                    <span class="tag">{{ skill }}</span>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+                
+                <div class="space-y-4">
+                    @for (skillCategory of rightSkillCategories; track skillCategory.name) {
+                        <div class="p-4 bg-primary-dim rounded">
+                            <h3 class="text-primary font-semibold mb-3">{{ skillCategory.name }}</h3>
+                            <div class="flex flex-wrap gap-2">
+                                @for (skill of skillCategory.skills; track skill) {
+                                    <span class="tag">{{ skill }}</span>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+        
+        <!-- Education -->
+        <section class="card" aria-labelledby="education">
+            <h2 id="education" class="card__title mb-6">Education</h2>
+            
+            @for (edu of education; track edu.id) {
+                <article class="p-4 bg-primary-dim rounded border-l-4 border-primary mb-4">
+                    <header class="mb-3">
+                        <h3 class="text-primary text-xl font-semibold">{{ edu.degree }}</h3>
+                        <div class="text-info text-lg mt-1">{{ edu.institution }}</div>
+                        <time class="text-warning italic text-sm">{{ edu.period }}</time>
+                    </header>
+                    <div class="card__content">
+                        <ul class="list space-y-2">
+                            @for (highlight of edu.highlights; track highlight) {
+                                <li>{{ highlight }}</li>
+                            }
+                        </ul>
+                    </div>
+                </article>
+            }
+        </section>
+        
+        <!-- Certifications & Achievements -->
+        <section class="card" aria-labelledby="certifications">
+            <h2 id="certifications" class="card__title mb-6">Certifications & Achievements</h2>
+            <div class="card__content">
+                <ul class="list list--achievements space-y-3">
+                    @for (cert of certifications; track cert.id) {
+                        <li class="flex justify-between items-center">
+                            <span>{{ cert.name }}</span>
+                            <span [class]="'tag ' + cert.tagClass">{{ cert.year }}</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Notable Projects -->
+        <section class="card" aria-labelledby="projects">
+            <h2 id="projects" class="card__title mb-6">Notable Projects</h2>
+            
+            @for (project of notableProjects; track project.id) {
+                <article class="mb-6 p-4 bg-primary-dim rounded border-l-4 border-primary">
+                    <h3 class="text-primary text-lg font-semibold mb-2">{{ project.name }}</h3>
+                    <p class="card__content">
+                        {{ project.description }}
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        @for (tech of project.technologies; track tech) {
+                            <span class="tag tag--secondary">{{ tech }}</span>
+                        }
+                    </div>
+                </article>
+            }
+        </section>
     </main>
+    
+    <nav class="mt-8">
+        <a routerLink="/" class="nav-back">← Back to Terminal</a>
+    </nav>
 </div>

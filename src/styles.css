@@ -7,8 +7,27 @@
   padding: var(--space-5);
   background: linear-gradient(45deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
   position: relative;
-  overflow: hidden;
+  overflow-y: auto;
   font-family: var(--font-family-mono);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary) transparent;
+}
+
+.terminal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.terminal::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: var(--border-radius-sm);
+}
+
+.terminal::-webkit-scrollbar-thumb:hover {
+  background: var(--color-secondary);
 }
 
 .terminal__header {

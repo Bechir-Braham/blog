@@ -1,31 +1,15 @@
 .terminal__content {
-  background: linear-gradient(45deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+  background: transparent;
   color: var(--color-text-secondary);
   font-family: var(--font-family-mono);
   font-size: var(--font-size-base);
-  height: calc(100vh - 100px);
-  overflow-y: auto;
+  min-height: calc(100vh - 100px);
   padding: var(--space-5);
   position: relative;
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-primary) transparent;
 }
 
 .terminal__content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.terminal__content::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.terminal__content::-webkit-scrollbar-thumb {
-  background: var(--color-primary);
-  border-radius: var(--border-radius-sm);
-}
-
-.terminal__content::-webkit-scrollbar-thumb:hover {
-  background: var(--color-secondary);
+  display: none;
 }
 
 .terminal__output {
