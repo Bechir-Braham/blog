@@ -19,20 +19,6 @@
         </div>
     </div>
     
-    <nav class="mb-8" aria-label="Blog post filters">
-        <div class="flex gap-4 justify-center flex-wrap">
-            @for (category of categories; track category.id) {
-                <button 
-                    class="btn btn--primary btn--small"
-                    [class.active]="selectedCategory === category.id"
-                    [attr.aria-pressed]="selectedCategory === category.id"
-                    (click)="filterByCategory(category.id)">
-                    {{ category.name }}
-                </button>
-            }
-        </div>
-    </nav>
-    
     <main class="grid gap-8" id="blogGrid" role="main">
         @for (post of filteredPosts; track post.id) {
             <article class="card animate-fade-in" [attr.data-category]="post.category">
@@ -42,7 +28,6 @@
                         <div class="flex gap-4 text-sm mt-2 flex-wrap">
                             <time class="text-warning" [attr.datetime]="post.publishDate">{{ formatDate(post.publishDate) }}</time>
                             <span class="tag tag--secondary">{{ post.category }}</span>
-                            <span class="tag tag--info">{{ getReadingTimeText(post.readTime) }}</span>
                         </div>
                     </div>
                 </div>
