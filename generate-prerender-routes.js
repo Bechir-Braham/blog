@@ -1,6 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 
+console.log('🔧 Starting prerender route generation...');
+console.log('📁 Working directory:', process.cwd());
+console.log('🌍 Environment:', process.env.NODE_ENV || 'development');
+
 // Static routes
 const staticRoutes = [
   '/',
@@ -13,6 +17,8 @@ const staticRoutes = [
 // Read blog index to get dynamic blog post routes
 const blogIndexPath = path.join(__dirname, 'public/assets/blog/blog-index.json');
 let blogRoutes = [];
+
+console.log('📖 Looking for blog index at:', blogIndexPath);
 
 try {
   const blogIndexContent = fs.readFileSync(blogIndexPath, 'utf8');
