@@ -33,7 +33,19 @@
             },
             "ssr": {
               "entry": "src/server.ts"
-            }
+            },
+            "allowedCommonJsDependencies": [
+              "cytoscape-fcose",
+              "@braintree/sanitize-url",
+              "dayjs",
+              "dayjs/plugin/isoWeek.js",
+              "dayjs/plugin/customParseFormat.js",
+              "dayjs/plugin/advancedFormat.js",
+              "cytoscape-cose-bilkent",
+              "debug",
+              "vscode-jsonrpc/lib/common/events.js",
+              "vscode-jsonrpc/lib/common/cancellation.js"
+            ]
           },
           "configurations": {
             "production": {

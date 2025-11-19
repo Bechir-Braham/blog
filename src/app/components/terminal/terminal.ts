@@ -137,17 +137,24 @@ export class TerminalComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private processCommand(input: string): string {
-    const command = input.toLowerCase();
+    const [command, ...args] = input.trim().split(/\s+/);
+    const cmd = command.toLowerCase();
     
     // Check built-in commands first
-    const builtInHandler = this.builtInCommands.get(command);
+    const builtInHandler = this.builtInCommands.get(cmd);
     if (builtInHandler) {
       return builtInHandler();
     }
 
+    // Handle cd command specially
+    if (cmd === 'cd') {
+      const destination = args[0] || '~';
+      return this.commandService.handleCdCommand(destination);
+    }
+
     // Try external command service
-    const result = this.commandService.executeCommand(input);
-    return result ?? this.getCommandNotFoundMessage(input);
+    const result = this.commandService.executeCommand(cmd);
+    return result ?? this.getCommandNotFoundMessage(command);
   }
 
   private handleClearCommand(): string {
