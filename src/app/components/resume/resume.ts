@@ -49,6 +49,7 @@ interface PersonalInfo {
   linkedinUrl: string;
   github: string;
   githubUrl: string;
+  profilePicture: string;
 }
 
 @Component({
@@ -66,7 +67,8 @@ export class ResumeComponent {
     linkedin: 'bechir--braham',
     linkedinUrl: 'https://fr.linkedin.com/in/bechir-brahem2000',
     github: 'Bechir-Braham',
-    githubUrl: 'https://github.com/Bechir-Braham'
+    githubUrl: 'https://github.com/Bechir-Braham',
+    profilePicture: 'assets/resume/resume-pic.jpeg'
   };
 
   professionalSummary = `Software Engineer specializing in scalable DevOps pipelines, distributed systems, and machine learning infrastructure.`;
@@ -234,20 +236,10 @@ export class ResumeComponent {
   ];
 
   downloadResume(): void {
-    // Create notification for demo purposes
-    const notification = document.createElement('div');
-    notification.className = 'fixed top-4 right-4 bg-success text-black p-4 rounded shadow-lg z-50';
-    notification.innerHTML = `
-      <strong>Download Started!</strong><br>
-      <small>PDF generation would happen here in a real implementation.</small>
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Remove notification after 3 seconds
-    setTimeout(() => {
-      notification.remove();
-    }, 3000);
+    const link = document.createElement('a');
+    link.href = 'assets/resume/resume.pdf';
+    link.download = 'Bechir_Braham_Resume.pdf';
+    link.click();
   }
 
   get leftSkillCategories(): SkillCategory[] {

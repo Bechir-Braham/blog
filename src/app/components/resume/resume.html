@@ -13,10 +13,21 @@
     </header>
     
     <main class="grid gap-8">
-        <!-- Personal Information -->
+        <!-- Personal Information with Profile Picture -->
         <section class="card" aria-labelledby="personal-info">
             <h2 id="personal-info" class="card__title mb-5">Personal Information</h2>
-            <div class="grid grid-cols-2 gap-6">
+            <div class="flex flex-col md:flex-row gap-6 items-start">
+                <!-- Profile Picture -->
+                <div class="flex-shrink-0">
+                    <div class="profile-picture">
+                        <img [src]="personalInfo.profilePicture" 
+                             [alt]="personalInfo.name + ' profile picture'"
+                             class="profile-picture__img">
+                    </div>
+                </div>
+                
+                <!-- Contact Information -->
+                <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div class="space-y-3">
                     <div class="flex">
                         <span class="text-primary font-semibold w-20 flex-shrink-0">Name:</span>
@@ -56,6 +67,7 @@
                            {{ personalInfo.github }}
                         </a>
                     </div>
+                </div>
                 </div>
             </div>
         </section>

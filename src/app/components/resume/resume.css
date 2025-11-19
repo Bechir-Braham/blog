@@ -1,0 +1,61 @@
+/* Profile Picture Styling */
+.profile-picture {
+  width: 180px;
+  height: 180px;
+  min-width: 180px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 3px solid var(--color-primary);
+  box-shadow: 0 4px 12px rgba(0, 255, 0, 0.2);
+  transition: all var(--transition-base);
+  position: relative;
+}
+
+.profile-picture:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 255, 0, 0.3);
+  border-color: var(--color-secondary);
+}
+
+.profile-picture__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Force proper flexbox layout */
+.card .flex.md\:flex-row {
+  display: flex !important;
+}
+
+@media (min-width: 768px) {
+  .card .flex.md\:flex-row {
+    flex-direction: row !important;
+    align-items: flex-start !important;
+  }
+  
+  .card .flex.md\:flex-row > .flex-shrink-0 {
+    flex-shrink: 0 !important;
+  }
+  
+  .card .flex.md\:flex-row > .flex-1 {
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 767px) {
+  .profile-picture {
+    width: 150px;
+    height: 150px;
+    min-width: 150px;
+    margin: 0 auto;
+  }
+  
+  .card .flex.flex-col {
+    flex-direction: column !important;
+  }
+}
