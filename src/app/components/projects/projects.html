@@ -1,66 +1,22 @@
-<!-- Under Construction Overlay -->
-<div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.9); z-index: 9999; display: flex; align-items: center; justify-content: center;">
-    <div class="bg-primary-dim border-2 border-primary p-8 rounded-lg text-center max-w-md mx-4">
-        <div class="text-warning text-6xl mb-4">🚧</div>
-        <h2 class="text-2xl font-bold text-primary mb-4">Under Construction</h2>
-        <p class="text-secondary mb-6">This page is currently being developed and improved. Please check back soon!</p>
-        <button 
-            class="btn btn--secondary"
-            onclick="window.history.back()"
-            aria-label="Go back to previous page">
-            ← Go Back
-        </button>
-    </div>
-</div>
-
 <div class="container py-10">
     <header class="page-header">
         <h1 class="page-header__title">$ ls -la ~/projects/</h1>
-        <p class="page-header__subtitle">A showcase of Bechir Braham's development projects</p>
+        <p class="page-header__subtitle">A showcase of some of my projects</p>
     </header>
     
-    <nav class="mb-8" aria-label="Project filters">
-        <div class="flex gap-4 justify-center flex-wrap">
-            @for (category of categories; track category.id) {
-                <button 
-                    class="btn btn--primary btn--small"
-                    [class.active]="selectedCategory === category.id"
-                    [attr.aria-pressed]="selectedCategory === category.id"
-                    (click)="filterByCategory(category.id)">
-                    {{ category.name }}
-                </button>
-            }
-        </div>
-    </nav>
-    
-    <main class="grid grid-cols-1 lg:grid-cols-2 gap-8" id="projectsGrid" role="main">
-        @for (project of filteredProjects; track project.id) {
-            <article class="card relative animate-fade-in" [attr.data-category]="project.categories.join(' ')">
-                @if (project.featured) {
-                    <div class="badge">Featured</div>
-                }
-                
+    <main class="grid grid-cols-1 md:grid-cols-2 gap-8" id="projectsGrid" role="main">
+        @for (project of allProjects; track project.id) {
+            <article class="card relative animate-fade-in">
                 <div class="card__header">
                     <div>
                         <h2 class="card__title">{{ project.name }}</h2>
-                        <div [class]="'status status--' + project.status">{{ project.statusText }}</div>
                     </div>
                 </div>
                 
                 <div class="card__content">
                     {{ project.description }}
                 </div>
-                
-                <div class="p-4 bg-primary-dim rounded mt-4">
-                    <div class="grid grid-cols-3 gap-4 text-sm">
-                        @for (stat of project.stats; track stat.label) {
-                            <div>
-                                <span class="text-primary font-semibold block">{{ stat.label }}:</span>
-                                <span class="text-muted">{{ stat.value }}</span>
-                            </div>
-                        }
-                    </div>
-                </div>
+
                 
                 <div class="mt-4">
                     <span class="text-primary font-semibold block mb-2">Technologies:</span>
@@ -82,15 +38,6 @@
                     }
                 </footer>
             </article>
-        }
-        
-        @if (filteredProjects.length === 0) {
-            <div class="text-center text-muted mt-12 col-span-full" role="status">
-                <p>No projects found in this category.</p>
-                <button class="btn btn--secondary btn--small mt-4" (click)="clearFilters()">
-                    Show all projects
-                </button>
-            </div>
         }
     </main>
     
