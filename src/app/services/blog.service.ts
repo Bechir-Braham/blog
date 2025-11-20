@@ -33,10 +33,7 @@ export class BlogService {
   private platformId = inject(PLATFORM_ID);
 
   constructor(private http: HttpClient) {
-    const isGitHubPages = typeof window !== 'undefined' && 
-      (window.location.hostname === 'bechir-braham.github.io' || 
-       window.location.pathname.startsWith('/blog/'));
-    this.basePath = isGitHubPages ? '/blog/assets/blog' : '/assets/blog';
+    this.basePath = '/assets/blog';
   }
 
   getBlogIndex(): Observable<BlogIndex> {
